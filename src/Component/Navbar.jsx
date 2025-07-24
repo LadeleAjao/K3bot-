@@ -8,35 +8,59 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen)
 
   return (
-    <nav className="fixed top-0 left-0 z-50 w-full h-16 bg-white/80 backdrop-blur-md shadow-md px-6 flex items-center justify-between">
-      <div className="flex items-center space-x-3">
-        <img src={LOGO} className="h-10 w-auto" alt="K3Bot Logo" />
-        <h1 className="text-xl font-bold text-green-700">K3Bot</h1>
+    <nav className="fixed top-0 left-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        {/* Logo & Brand */}
+        <div className="flex items-center space-x-3">
+          <img src={LOGO} className="h-12 w-auto" alt="K3Bot Logo" />
+          <h1 className="text-3xl font-bold text-green-700">K3Bot</h1>
+        </div>
+
+        {/* Desktop Nav Links */}
+        <ul className="hidden md:flex items-center space-x-10">
+          {['Features', 'Use Cases', 'Pricing'].map((item) => (
+            <li key={item}>
+              <a
+                className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200"
+                href={`#${item.toLowerCase().replace(' ', '-')}`}
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-200 text-lg font-semibold"
+              href="#getstarted"
+            >
+              Get Started
+            </a>
+          </li>
+        </ul>
+
+        {/* Mobile Toggle */}
+        <button className="md:hidden text-gray-800" onClick={toggleMenu}>
+          {isOpen ? <X size={30} /> : <Menu size={30} />}
+        </button>
       </div>
-
-      {/* Desktop Links */}
-      <ul className="hidden md:flex items-center space-x-6">
-        <a className="text-gray-700 hover:text-green-600 font-medium transition duration-200" href="#">Features</a>
-        <a className="text-gray-700 hover:text-green-600 font-medium transition duration-200" href="#">Use Cases</a>
-        <a className="text-gray-700 hover:text-green-600 font-medium transition duration-200" href="#">Pricing</a>
-        <a className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200 text-sm font-semibold" href="#">
-          Get Demo
-        </a>
-      </ul>
-
-      {/* Mobile Menu Icon */}
-      <button className="md:hidden text-gray-700" onClick={toggleMenu}>
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md px-6 py-4 flex flex-col space-y-4 md:hidden">
-          <a className="text-gray-700 hover:text-green-600 font-medium transition" href="#">Features</a>
-          <a className="text-gray-700 hover:text-green-600 font-medium transition" href="#">Use Cases</a>
-          <a className="text-gray-700 hover:text-green-600 font-medium transition" href="#">Pricing</a>
-          <a className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition text-sm font-semibold w-max" href="#">
-            Get Demo
+        <div className="md:hidden px-6 pt-4 pb-6 bg-white shadow space-y-5">
+          {['Features', 'Use Cases', 'Pricing'].map((item) => (
+            <a
+              key={item}
+              className="block text-[18px] font-semibold text-gray-800 hover:text-green-600 transition"
+              href={`#${item.toLowerCase().replace(' ', '-')}`}
+            >
+              {item}
+            </a>
+          ))}
+          <a
+            className="inline-block bg-green-600 text-white px-5 py-3 rounded-md hover:bg-green-700 transition text-base font-semibold"
+            href="#get-started"
+          >
+            Get Started
           </a>
         </div>
       )}
