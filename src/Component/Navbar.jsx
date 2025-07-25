@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo & Brand */}
+        {/* Logo*/}
         <div className="flex items-center space-x-3">
           <img src={LOGO} className="h-12 w-auto" alt="K3Bot Logo" />
           <h1 className="text-3xl font-bold text-green-700">K3Bot</h1>
