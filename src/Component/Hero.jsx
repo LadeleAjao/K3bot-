@@ -3,7 +3,7 @@ import Whatsapp from "../assets/Whatsapp.png";
 
 const Hero = () => {
   return (
-    <div className="w-full min-h-screen bg-[#F9FAFB] flex flex-col md:flex-row items-center justify-between px-6 md:px-32 lg:px-48 py-24 overflow-hidden">
+    <div className="w-full bg-[#F9FAFB] flex flex-col md:flex-row items-center justify- px-6 md:px-32 lg:px-48 py-24 overflow-hidden">
       
       {/* Left Side */}
       <div className="w-full md:w-1/2 space-y-10">
