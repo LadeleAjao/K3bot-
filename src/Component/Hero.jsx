@@ -1,5 +1,6 @@
 import React from "react";
-import Whatsapp from "../assets/Whatsapp.png";
+import Lottie from "lottie-react";
+import ChatboxAnimation from "../assets/Chatbox.json";
 
 const Hero = () => {
   return (
@@ -13,9 +14,8 @@ const Hero = () => {
           <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight w-1/2">
             Everything You Need to Automate WhatsApp
           </h1>
-          <img
-            src={Whatsapp}
-            alt="Whatsapp UI"
+          <Lottie
+            animationData={ChatboxAnimation}
             className="h-[150px] sm:h-[180px] w-auto object-contain block"
           />
         </div>
@@ -42,9 +42,8 @@ const Hero = () => {
 
       {/* Right Side  */}
       <div className="w-full md:w-1/2 mt-10 md:mt-0 hidden md:flex justify-center">
-        <img
-          src={Whatsapp}
-          alt="Whatsapp UI"
+        <Lottie
+          animationData={ChatboxAnimation}
           className="max-h-[650px] lg:max-h-[750px] w-auto object-contain"
         />
       </div>
