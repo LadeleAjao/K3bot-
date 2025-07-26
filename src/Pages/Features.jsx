@@ -7,7 +7,7 @@ import {
   FaMobileAlt,
   FaMoneyCheckAlt,
 } from "react-icons/fa";
-import whatsappImg from "../assets/Whatsapp.png"; // Replace with your Lottie if needed
+import whatsappImg from "../assets/Whatsapp.png"; 
 
 const featuresData = [
   {
@@ -59,7 +59,7 @@ const Features = () => {
           Core Features
         </h2>
 
-        {/* Desktop Layout */}
+        {/* Desktop view */}
         <div className="hidden md:flex items-center justify-between gap-8 h-[70vh]">
           {/* Left */}
           <div className="w-1/2 grid grid-cols-2 gap-6 h-full">
@@ -123,5 +123,4 @@ const Features = () => {
     </section>
   );
 };
-
 export default Features;
