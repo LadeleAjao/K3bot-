@@ -2,6 +2,7 @@ import React from 'react'
 import Hero from "../Component/Hero"
 import Features from "../Pages/Features"
 import Blog from "../Pages/Blog"
+import Niche from './Niche'
 
 const Home = () => {
   return (
@@ -14,8 +15,11 @@ const Home = () => {
         <Features />
       </section>
       <section>
-        <Blog/>
+        <Niche/>
       </section>
+      {/* <section>
+        <Blog/>
+      </section> */}
     </main>
   )
 }

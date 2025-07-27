@@ -38,7 +38,7 @@ const featuresData = [
   {
     icon: <FaMoneyCheckAlt className="text-green-600 text-2xl md:text-3xl" />,
     title: "Payment & Receipt Automation",
-    desc: "Accept payments and auto-send receipts.",
+    desc: "Accept payments and auto send receipts.",
   },
 ];
 
