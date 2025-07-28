@@ -15,7 +15,7 @@ const Home = () => {
       <section className="w-full m-0 p-0">
         <Features />
       </section>
-      <div className="min-h-screen">
+      <div >
       <Testimony />
     </div>
     </main>
