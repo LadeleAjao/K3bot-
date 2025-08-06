@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { backendUrl } from "../App";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { PricingPlan } from "../assets/assets";
 
-const plans = [
-  { name: "Starter", price: 1500, label: "Starter (₦1500 annually)", audience: "5,000 Audience" },
-  { name: "Grow", price: 3000, label: "Grow (₦3000 annually)", audience: "20,000 Audience" },
-  { name: "Premium", price: 7000, label: "Premium (₦7000 annually)", audience: "100,000 Audience" },
+const planKeys = [
+  { key: "starter", label: "Starter", audience: "5,000 Audience" },
+  { key: "starterPlus", label: "Grow", audience: "20,000 Audience" },
+  { key: "premium", label: "Premium", audience: "100,000 Audience" },
 ];
 
 const countryOptions = [
@@ -23,25 +24,59 @@ const countryOptions = [
   { code: "other", label: "🌍 Other" },
 ];
 
-const features = [
-  "24/7 Auto Replies — Instant responses to customers",
-  "Product & Pricing Catalog inside WhatsApp",
-  "Google Sheets Integration — Real-time data sync",
-  "Booking & Order Capture — No extra app needed",
+const billingCycles = [
+  { key: "annually", label: "Annually" },
+  { key: "quarterly", label: "Quarterly" },
 ];
 
 const Signup = () => {
+  const location = useLocation();
+  const initialPlanKey = location.state?.planKey || "";
+  const initialBillingCycle = location.state?.billingCycle || "";
+
+  const [selectedPlanKey, setSelectedPlanKey] = useState(initialPlanKey);
+  const [selectedBillingCycle, setSelectedBillingCycle] = useState(initialBillingCycle);
   const [formData, setFormData] = useState({
     name: "",
     business: "",
     email: "",
     phone: "",
     countryCode: "+234",
-    plan: plans[0].name,
-    price: plans[0].price,
+    plan: initialPlanKey,
+    billingCycle: initialBillingCycle,
   });
   const [loading, setLoading] = useState(false);
-  const [featuresOpen, setFeaturesOpen] = useState(false);
+  const [featureOpenIndexes, setFeatureOpenIndexes] = useState([]);
+
+  // Update formData when plan or billing cycle changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      plan: selectedPlanKey,
+      billingCycle: selectedBillingCycle,
+    }));
+  }, [selectedPlanKey, selectedBillingCycle]);
+
+  const selectedPlanMeta = planKeys.find((p) => p.key === selectedPlanKey);
+  const selectedPlan =
+    selectedPlanKey && selectedBillingCycle
+      ? PricingPlan[selectedBillingCycle]?.[selectedPlanKey]
+      : null;
+
+  const handlePlanBoxClick = (key) => {
+    setSelectedPlanKey(key);
+    setFeatureOpenIndexes([]);
+  };
+
+  const handlePlanChange = (e) => {
+    setSelectedPlanKey(e.target.value);
+    setFeatureOpenIndexes([]);
+  };
+
+  const handleBillingCycleChange = (e) => {
+    setSelectedBillingCycle(e.target.value);
+    setFeatureOpenIndexes([]);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,20 +93,23 @@ const Signup = () => {
     }));
   };
 
-  const handlePlanChange = (e) => {
-    const selected = plans.find((p) => p.name === e.target.value);
-    setFormData((prev) => ({
-      ...prev,
-      plan: selected.name,
-      price: selected.price,
-    }));
+  const handleFeatureToggle = (idx) => {
+    setFeatureOpenIndexes((prev) =>
+      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+    );
   };
 
   const handlePayment = async (paymentMethod) => {
+    if (!selectedPlanKey || !selectedBillingCycle) {
+      alert("Please select a plan and billing cycle first.");
+      return;
+    }
     setLoading(true);
     try {
       const userDetails = {
         ...formData,
+        plan: selectedPlanKey,
+        billingCycle: selectedBillingCycle,
         paymentMethod: paymentMethod.toLowerCase(),
       };
       const res = await axios.post(`${backendUrl}/api/pay`, userDetails);
@@ -88,38 +126,62 @@ const Signup = () => {
     }
   };
 
-  // Get selected plan for form heading and highlight
-  const selectedPlan = plans.find((p) => p.name === formData.plan);
-
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white py-8 px-2">
+    <div className="min-h-screen flex flex-col items-center bg-white py-12 px-4">
       <div className="w-full max-w-lg mx-auto">
         <Link to="/" className="block text-center text-2xl font-bold mb-6 hover:underline">
           Back to Home
         </Link>
         {/* Plans */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center mb-8">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`border rounded-xl px-6 py-4 text-center bg-white flex flex-col items-center transition-all ${
-                selectedPlan.name === plan.name
-                  ? "border-green-500 shadow-lg"
+        <div className="grid grid-cols-3 gap-6 justify-center mb-8 overflow-x-auto">
+          {planKeys.map((plan) => (
+            <button
+              type="button"
+              key={plan.key}
+              onClick={() => handlePlanBoxClick(plan.key)}
+              className={`border rounded-xl px-6 py-4 text-center bg-white flex flex-col items-center transition-all focus:outline-none ${
+                selectedPlanKey === plan.key
+                  ? "border-green-500 shadow-lg ring-2 ring-green-200"
                   : "border-gray-200"
               }`}
+              tabIndex={0}
+              style={{ minWidth: 0 }}
             >
-              <div className="font-bold text-lg sm:text-xl mb-1">{plan.name}</div>
+              <div className="font-bold text-lg sm:text-xl mb-1">{plan.label}</div>
               <div className="text-gray-700 text-sm mb-1">{plan.audience}</div>
               <div className="text-2xl font-bold mb-1">
-                ₦{plan.price.toLocaleString()}
+                {selectedBillingCycle && PricingPlan[selectedBillingCycle]?.[plan.key]
+                  ? `₦${PricingPlan[selectedBillingCycle][plan.key].price.toLocaleString()}`
+                  : "--"}
               </div>
-              <div className="text-gray-500 text-sm">annually</div>
-            </div>
+              <div className="text-gray-500 text-sm">
+                {selectedBillingCycle ? selectedBillingCycle : "Select cycle"}
+              </div>
+            </button>
+          ))}
+        </div>
+        {/* Billing Cycle Picker */}
+        <div className="mb-4 flex items-center gap-4 justify-center">
+          <span className="font-semibold text-lg">Billing Cycle:</span>
+          {billingCycles.map((cycle) => (
+            <button
+              key={cycle.key}
+              type="button"
+              onClick={handleBillingCycleChange}
+              value={cycle.key}
+              className={`px-4 py-2 rounded font-semibold shadow border transition ${
+                selectedBillingCycle === cycle.key
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-blue-600"
+              }`}
+            >
+              {cycle.label}
+            </button>
           ))}
         </div>
         {/* Form */}
         <h2 className="text-xl sm:text-2xl font-bold text-center mb-4">
-          Get Started with {selectedPlan.label.split(" ")[0]} Plan
+          Get Started {selectedPlanMeta ? `with ${selectedPlanMeta.label} Plan` : ""}
         </h2>
         <form className="space-y-3" onSubmit={e => e.preventDefault()}>
           <input
@@ -172,15 +234,40 @@ const Signup = () => {
               required
             />
           </div>
+          {/* Plan Dropdown */}
           <select
             name="plan"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-            value={formData.plan}
+            value={selectedPlanKey}
             onChange={handlePlanChange}
+            required
           >
-            {plans.map((plan) => (
-              <option key={plan.name} value={plan.name}>
+            <option value="" disabled>
+              Select a plan
+            </option>
+            {planKeys.map((plan) => (
+              <option key={plan.key} value={plan.key}>
                 {plan.label}
+                {selectedBillingCycle && PricingPlan[selectedBillingCycle]?.[plan.key]
+                  ? ` (₦${PricingPlan[selectedBillingCycle][plan.key].price.toLocaleString()} ${selectedBillingCycle})`
+                  : ""}
+              </option>
+            ))}
+          </select>
+          {/* Billing Cycle Dropdown */}
+          <select
+            name="billingCycle"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            value={selectedBillingCycle}
+            onChange={handleBillingCycleChange}
+            required
+          >
+            <option value="" disabled>
+              Select billing cycle
+            </option>
+            {billingCycles.map((cycle) => (
+              <option key={cycle.key} value={cycle.key}>
+                {cycle.label}
               </option>
             ))}
           </select>
@@ -189,7 +276,7 @@ const Signup = () => {
               type="button"
               className="w-full sm:w-1/2 py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 transition"
               onClick={() => handlePayment("opay")}
-              disabled={loading}
+              disabled={loading || !selectedPlanKey || !selectedBillingCycle}
             >
               Pay with Opay
             </button>
@@ -197,7 +284,7 @@ const Signup = () => {
               type="button"
               className="w-full sm:w-1/2 py-3 rounded-lg font-semibold bg-purple-600 text-white hover:bg-purple-700 transition"
               onClick={() => handlePayment("flutterwave")}
-              disabled={loading}
+              disabled={loading || !selectedPlanKey || !selectedBillingCycle}
             >
               Pay with Flutterwave
             </button>
@@ -207,22 +294,35 @@ const Signup = () => {
           <span className="mr-2">🔒</span>
           Secure Checkout — your information is safe
         </div>
-        {/* Features Dropdown */}
+        {/* Features Accordion */}
         <div className="mt-8">
-          <button
-            className="w-full flex justify-between items-center px-4 py-3 border border-green-400 rounded-lg font-bold text-green-700 bg-green-50 focus:outline-none"
-            onClick={() => setFeaturesOpen((open) => !open)}
-            aria-expanded={featuresOpen}
-          >
-            <span>What You Get with K3Bot</span>
-            <span>{featuresOpen ? "▲" : "▼"}</span>
-          </button>
-          {featuresOpen && (
-            <ul className="space-y-1 text-green-700 font-medium text-base mt-3 px-2 pb-2">
-              {features.map((f, i) => (
-                <li key={i}>✔ {f}</li>
+          <h3 className="text-lg font-bold mb-2 text-center text-green-700">
+            What You Get with {selectedPlanMeta ? selectedPlanMeta.label : "..."} Plan
+          </h3>
+          {selectedPlan ? (
+            <div className="space-y-2">
+              {selectedPlan.features.map((f, idx) => (
+                <div key={idx} className="border border-green-200 rounded-lg">
+                  <button
+                    type="button"
+                    className="w-full flex justify-between items-center px-4 py-3 font-semibold text-green-800 bg-green-50 rounded-lg focus:outline-none transition"
+                    onClick={() => handleFeatureToggle(idx)}
+                  >
+                    <span>{f.Headings}</span>
+                    <span className="ml-2">{featureOpenIndexes.includes(idx) ? "▲" : "▼"}</span>
+                  </button>
+                  {featureOpenIndexes.includes(idx) && (
+                    <div className="px-4 pb-3 text-green-900 text-sm bg-white rounded-b-lg animate-fade-in">
+                      {f.Wordings}
+                    </div>
+                  )}
+                </div>
               ))}
-            </ul>
+            </div>
+          ) : (
+            <div className="text-center text-gray-400 py-6">
+              Select a plan and billing cycle to see features
+            </div>
           )}
         </div>
       </div>
