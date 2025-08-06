@@ -154,28 +154,6 @@ const Signup = () => {
                   ? `₦${PricingPlan[selectedBillingCycle][plan.key].price.toLocaleString()}`
                   : "--"}
               </div>
-              <div className="text-gray-500 text-sm">
-                {selectedBillingCycle ? selectedBillingCycle : "Select cycle"}
-              </div>
-            </button>
-          ))}
-        </div>
-        {/* Billing Cycle Picker */}
-        <div className="mb-4 flex items-center gap-4 justify-center">
-          <span className="font-semibold text-lg">Billing Cycle:</span>
-          {billingCycles.map((cycle) => (
-            <button
-              key={cycle.key}
-              type="button"
-              onClick={handleBillingCycleChange}
-              value={cycle.key}
-              className={`px-4 py-2 rounded font-semibold shadow border transition ${
-                selectedBillingCycle === cycle.key
-                  ? "bg-blue-600 text-white"
-                  : "bg-white text-blue-600"
-              }`}
-            >
-              {cycle.label}
             </button>
           ))}
         </div>
@@ -254,7 +232,7 @@ const Signup = () => {
               </option>
             ))}
           </select>
-          {/* Billing Cycle Dropdown */}
+          {/* Billing Cycle Dropdown (in form only) */}
           <select
             name="billingCycle"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
