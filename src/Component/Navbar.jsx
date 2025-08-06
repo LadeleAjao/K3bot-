@@ -26,11 +26,10 @@ const Navbar = () => {
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex items-center space-x-10">
           <li className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200 cursor-pointer">
-            {/* <Link></Link> */}
-            <a href="">Feautres</a>
+            <Link to="/features" >Features</Link>
           </li>
           <li className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200 cursor-pointer">
-            <Link>Use Cases</Link>
+            <Link to="/usecase" >Use Cases</Link>
           </li>
           <li className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200 cursor-pointer">
             <Link to="/pricing">Pricing</Link>
@@ -56,10 +55,10 @@ const Navbar = () => {
         <div className="md:hidden px-6 pt-4 pb-6 bg-white shadow space-y-5">
           <ul className="flex flex-col space-y-4">
             <li className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200 cursor-pointer">
-              <a href="#">Features</a>
+               <Link to="/features" >Features</Link>
             </li>
             <li className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200 cursor-pointer">
-              <Link to="/use-cases">Use Cases</Link>
+              <Link to="/usecase">Use Cases</Link>
             </li>
             <li className="text-gray-800 hover:text-green-600 font-semibold text-[20px] transition duration-200 cursor-pointer">
               <Link to="/pricing">Pricing</Link>

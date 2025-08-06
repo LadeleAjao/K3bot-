@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PricingPlan } from "../assets/assets";
 import axios from "axios";
 import { backendUrl } from "../App";
-// Import your carousel component
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useEffect } from "react";
+
+// PaymentSuccess component
+const PaymentSuccess = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen">
+    <h1 className="text-3xl font-bold text-green-600 mb-4">Payment Successful!</h1>
+    <p className="text-lg">Thank you for your payment.</p>
+  </div>
+);
 
 const responsive = {
   mobile: {
@@ -25,10 +31,20 @@ const Pricing = () => {
     email: "",
     industry: "",
   });
-useEffect(() => {
-console.log(formData);
 
-}, [formData])
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+  useEffect(() => {
+    // Show payment success if redirected to /payment-success
+    if (window.location.pathname === "/payment-success") {
+      setPaymentSuccess(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   const handleGetStarted = (planKey, planData) => {
     setSelectedPlan({ ...planData, name: planKey });
     setShowModal(true);
@@ -39,73 +55,33 @@ console.log(formData);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  
-const storeUserData = async (gateway) => {
-  const userDetails = {
-    name: formData.name,
-    business: formData.business,
-    email: formData.email,
-    industry: formData.industry,
-    plan: selectedPlan.name,
-    billingCycle,
-    price: selectedPlan.price,
-    paymentMethod: gateway.toLowerCase(),
-  };
-  console.log(gateway);
-  
+  // SECURE: Only backend initiates payment and returns payment link
+  const storeUserData = async (gateway) => {
+    const userDetails = {
+      name: formData.name,
+      business: formData.business,
+      email: formData.email,
+      industry: formData.industry,
+      plan: selectedPlan.name,
+      billingCycle,
+      price: selectedPlan.price,
+      paymentMethod: gateway.toLowerCase(),
+    };
 
-  if (gateway.toLowerCase() === "flutterwave") {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-31fc1131844cea9b10a5699c2d24fdce-X",
-      tx_ref: `k3bot-${Date.now()}`,
-      amount: selectedPlan.price,
-      currency: "NGN",
-      payment_options: "card,banktransfer",
-      customer: {
-        email: formData.email,
-        phonenumber: "",
-        name: formData.name,
-      },
-      callback: async function (data) {
-        console.log("Flutterwave Payment Success:", data);
-        try {
-          await axios.post(`${backendUrl}/api/verify-payment`, {
-            transaction_id: data.transaction_id,
-          });
-        } catch (error) {
-          console.error("Verification error:", error);
-        }
-      },
-      onclose: function () {
-        console.log("Flutterwave payment closed");
-      },
-      customizations: {
-        title: "K3Bot Subscription",
-        description: `Payment for ${selectedPlan.name} (${billingCycle})`,
-      },
-    })
-
-    setShowModal(false);
-    return;
-  }
-
-  // For other gateways
-  try {
-    const res = await axios.post(`${backendUrl}/api/pay`, userDetails);
-    if (res.data?.link) {
-      window.location.href = res.data.link;
-    } else {
-      alert("Payment link not received.");
+    try {
+      const res = await axios.post(`${backendUrl}/api/pay`, userDetails);
+      if (res.data?.link) {
+        window.location.href = res.data.link;
+      } else {
+        alert("Payment link not received.");
+      }
+    } catch (err) {
+      console.error("Payment Error:", err.response?.data || err.message);
+      alert("Failed to initiate payment.");
+    } finally {
+      setShowModal(false);
     }
-  } catch (err) {
-    console.error("Payment Error:", err.response?.data || err.message);
-    alert("Failed to initiate payment.");
-  } finally {
-    setShowModal(false);
-  }
-};
-
-
+  };
 
   const getIcon = (heading) => {
     const text = heading.toLowerCase();
@@ -121,6 +97,11 @@ const storeUserData = async (gateway) => {
     if (text.includes("charge")) return "💰";
     return "✅";
   };
+
+  // Show payment success message if paymentSuccess is true
+  if (paymentSuccess) {
+    return <PaymentSuccess />;
+  }
 
   return (
     <div className="p-4 py-[100px] max-w-7xl mx-auto">

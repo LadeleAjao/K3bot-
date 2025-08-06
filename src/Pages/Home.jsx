@@ -2,7 +2,6 @@ import React from 'react'
 import Hero from "../Component/Hero"
 import Features from "../Pages/Features"
 import Blog from "../Pages/Blog"
-import Niche from './Niche'
 import Testimony from '../Component/Testimony'
 import  Trusted from '../Component/Trusted'
 const Home = () => {
