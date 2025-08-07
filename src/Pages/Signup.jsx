@@ -110,6 +110,8 @@ const Signup = () => {
         ...formData,
         plan: selectedPlanKey,
         billingCycle: selectedBillingCycle,
+        price: selectedPlan.price,
+        countryCode: formData.countryCode,
         paymentMethod: paymentMethod.toLowerCase(),
       };
       const res = await axios.post(`${backendUrl}/api/pay`, userDetails);
