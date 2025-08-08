@@ -18,12 +18,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <Link to="/">
+          <Link to="/" aria-label="Go to Home">
             <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
           </Link>
-          <span className="text-2xl font-bold text-green-700 tracking-tight">
-            K3Bot
-          </span>
+          <Link to="/" aria-label="Go to Home">
+            <span className="text-2xl font-bold text-green-700 tracking-tight cursor-pointer">
+              K3Bot
+            </span>
+          </Link>
         </div>
 
         {/* Desktop Nav Links */}
@@ -78,8 +80,14 @@ const Navbar = () => {
             {/* Top bar with logo and close */}
             <div className="flex items-center justify-between px-6 pt-6 pb-2">
               <div className="flex items-center space-x-2">
-                <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
-                <span className="text-2xl font-bold text-green-700">K3Bot</span>
+                <Link to="/" aria-label="Go to Home">
+                  <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
+                </Link>
+                <Link to="/" aria-label="Go to Home">
+                  <span className="text-2xl font-bold text-green-700 cursor-pointer">
+                    K3Bot
+                  </span>
+                </Link>
               </div>
               <button onClick={toggleMenu} className="text-gray-800">
                 <X size={32} />

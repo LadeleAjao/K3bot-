@@ -53,7 +53,7 @@ const Pricing = () => {
   }
 
   return (
-    <div className="p-4 py-[100px] max-w-7xl mx-auto">
+    <div className="p-4 py-26 max-w-7xl mx-auto">
       {/* Billing Cycle Toggle */}
       <div className="mb-6 flex items-center gap-4">
         <span className="font-semibold text-lg">Billing Cycle:</span>

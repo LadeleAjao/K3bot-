@@ -129,7 +129,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white py-12 px-4">
+    <div className="min-h-screen flex flex-col items-center bg-white py-26 px-4">
       <div className="w-full max-w-lg mx-auto">
         <Link to="/" className="block text-center text-2xl font-bold mb-6 hover:underline">
           Back to Home
