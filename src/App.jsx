@@ -8,6 +8,7 @@ import Signup from "./Pages/Signup";
 import Pricing from "./Pages/Pricing";
 import Niche from "./Pages/Niche";
 import Corefeautures from "./Pages/Corefeautures";
+import About from "./Pages/About";
 
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -19,7 +20,8 @@ const App = () => {
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/pricing" element={<Pricing/>}/>
-        <Route path="/usecase" element={<Niche/>} />
+        <Route path="/usecase" element={<Niche />} />
+        <Route path="/about" element={<About />} />
         <Route path="/features" element={<Corefeautures/>} />
       </Routes>
       <Footer/>

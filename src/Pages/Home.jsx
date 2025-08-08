@@ -4,6 +4,7 @@ import Features from "../Pages/Features"
 import Blog from "../Pages/Blog"
 import Testimony from '../Component/Testimony'
 import  Trusted from '../Component/Trusted'
+import Corefeautures from './Corefeautures'
 const Home = () => {
   return (
     <main className="m-0 p-0">
@@ -11,10 +12,11 @@ const Home = () => {
         <Hero />
       </section>
       <div>
-        <Trusted/>
+        {/* <Trusted/> */}
       </div>
       <section className="w-full m-0 p-0">
-        <Features />
+        {/* <Features /> */}
+        <Corefeautures/>
       </section>
       <div >
       <Testimony />
