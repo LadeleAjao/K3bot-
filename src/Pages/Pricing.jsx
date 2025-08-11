@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { PricingPlan } from "../assets/assets";
+import { PricingPlan, faq } from "../assets/assets";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => (
   <div className="flex flex-col items-center justify-center min-h-screen">
-    <h1 className="text-3xl font-bold text-green-600 mb-4">Payment Successful!</h1>
+    <h1 className="text-3xl font-bold text-green-600 mb-4">
+      Payment Successful!
+    </h1>
     <p className="text-lg">Thank you for your payment.</p>
   </div>
 );
@@ -16,6 +18,66 @@ const responsive = {
     breakpoint: { max: 767, min: 0 },
     items: 1,
   },
+};
+
+// FAQ Section
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const handleToggle = (idx) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
+
+  return (
+    <section className="max-w-3xl mx-auto mt-24 mb-16">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-10 text-gray-900">
+        Frequently Asked Questions
+      </h2>
+      <div className="space-y-4">
+        {faq.faqs.map((item, idx) => (
+          <div
+            key={idx}
+            className="border border-gray-200 rounded-2xl bg-white shadow transition"
+          >
+            <button
+              className="w-full flex justify-between items-center px-6 py-5 text-lg md:text-xl font-semibold text-left focus:outline-none transition group"
+              onClick={() => handleToggle(idx)}
+              aria-expanded={openIndex === idx}
+            >
+              <span className="text-gray-900">{item.heading}</span>
+              <svg
+                className={`w-7 h-7 text-gray-500 transform transition-transform duration-200 ${
+                  openIndex === idx ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div
+              className={`px-6 pb-6 text-gray-700 text-base transition-all duration-300 overflow-hidden ${
+                openIndex === idx
+                  ? "max-h-[1000px] opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
+              style={{
+                transitionProperty: "max-height, opacity",
+              }}
+            >
+              <div className="whitespace-pre-line">{item.body}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
 const Pricing = () => {
@@ -107,17 +169,32 @@ const Pricing = () => {
                     <li key={index} className="flex items-start gap-3">
                       <span className="text-green-500 text-2xl mt-1">
                         {index < 5 ? (
-                          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="12" fill="#22c55e"/>
-                            <path d="M7 13l3 3 7-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <svg
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle cx="12" cy="12" r="12" fill="#22c55e" />
+                            <path
+                              d="M7 13l3 3 7-7"
+                              stroke="#fff"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
                           </svg>
                         ) : (
                           <span>{getIcon(feature.Headings)}</span>
                         )}
                       </span>
                       <div>
-                        <div className="font-bold text-gray-900 text-base">{feature.Headings}</div>
-                        <div className="text-gray-600 text-sm leading-snug">{feature.Wordings}</div>
+                        <div className="font-bold text-gray-900 text-base">
+                          {feature.Headings}
+                        </div>
+                        <div className="text-gray-600 text-sm leading-snug">
+                          {feature.Wordings}
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -165,17 +242,32 @@ const Pricing = () => {
                       <li key={index} className="flex items-start gap-3">
                         <span className="text-green-500 text-2xl mt-1">
                           {index < 5 ? (
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <circle cx="12" cy="12" r="12" fill="#22c55e"/>
-                              <path d="M7 13l3 3 7-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <svg
+                              width="24"
+                              height="24"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle cx="12" cy="12" r="12" fill="#22c55e" />
+                              <path
+                                d="M7 13l3 3 7-7"
+                                stroke="#fff"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
                             </svg>
                           ) : (
                             <span>{getIcon(feature.Headings)}</span>
                           )}
                         </span>
                         <div>
-                          <div className="font-bold text-gray-900 text-base">{feature.Headings}</div>
-                          <div className="text-gray-600 text-sm leading-snug">{feature.Wordings}</div>
+                          <div className="font-bold text-gray-900 text-base">
+                            {feature.Headings}
+                          </div>
+                          <div className="text-gray-600 text-sm leading-snug">
+                            {feature.Wordings}
+                          </div>
                         </div>
                       </li>
                     ))}
@@ -193,6 +285,8 @@ const Pricing = () => {
           </Carousel>
         </div>
       </div>
+      {/* FAQ Section */}
+      <FAQSection />
     </div>
   );
 };
