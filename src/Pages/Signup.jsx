@@ -48,7 +48,6 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [featureOpenIndexes, setFeatureOpenIndexes] = useState([]);
 
-  // Update formData when plan or billing cycle changes
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
@@ -99,7 +98,8 @@ const Signup = () => {
     );
   };
 
-  const handlePayment = async (paymentMethod) => {
+  // Only Moniepoint payment
+  const handlePayment = async () => {
     if (!selectedPlanKey || !selectedBillingCycle) {
       alert("Please select a plan and billing cycle first.");
       return;
@@ -107,14 +107,16 @@ const Signup = () => {
     setLoading(true);
     try {
       const userDetails = {
-        ...formData,
+        name: formData.name,
+        business: formData.business,
+        email: formData.email,
+        phone: formData.phone,
+        countryCode: formData.countryCode,
         plan: selectedPlanKey,
         billingCycle: selectedBillingCycle,
-        price: selectedPlan.price,
-        countryCode: formData.countryCode,
-        paymentMethod: paymentMethod.toLowerCase(),
+        amount: selectedPlan.price,
       };
-      const res = await axios.post(`${backendUrl}/api/pay`, userDetails);
+      const res = await axios.post(`${backendUrl}/api/payment/monnify`, userDetails);
       if (res.data?.link) {
         window.location.href = res.data.link;
       } else {
@@ -131,7 +133,10 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex flex-col items-center bg-white py-26 px-4">
       <div className="w-full max-w-lg mx-auto">
-        <Link to="/" className="block text-center text-2xl font-bold mb-6 hover:underline">
+        <Link
+          to="/"
+          className="block text-center text-2xl font-bold mb-6 hover:underline"
+        >
           Back to Home
         </Link>
         {/* Plans */}
@@ -149,11 +154,16 @@ const Signup = () => {
               tabIndex={0}
               style={{ minWidth: 0 }}
             >
-              <div className="font-bold text-lg sm:text-xl mb-1">{plan.label}</div>
+              <div className="font-bold text-lg sm:text-xl mb-1">
+                {plan.label}
+              </div>
               <div className="text-gray-700 text-sm mb-1">{plan.audience}</div>
               <div className="text-2xl font-bold mb-1">
-                {selectedBillingCycle && PricingPlan[selectedBillingCycle]?.[plan.key]
-                  ? `₦${PricingPlan[selectedBillingCycle][plan.key].price.toLocaleString()}`
+                {selectedBillingCycle &&
+                PricingPlan[selectedBillingCycle]?.[plan.key]
+                  ? `₦${PricingPlan[selectedBillingCycle][
+                      plan.key
+                    ].price.toLocaleString()}`
                   : "--"}
               </div>
             </button>
@@ -161,9 +171,10 @@ const Signup = () => {
         </div>
         {/* Form */}
         <h2 className="text-xl sm:text-2xl font-bold text-center mb-4">
-          Get Started {selectedPlanMeta ? `with ${selectedPlanMeta.label} Plan` : ""}
+          Get Started{" "}
+          {selectedPlanMeta ? `with ${selectedPlanMeta.label} Plan` : ""}
         </h2>
-        <form className="space-y-3" onSubmit={e => e.preventDefault()}>
+        <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             name="name"
@@ -198,7 +209,7 @@ const Signup = () => {
               onChange={handleCountryCodeChange}
               style={{ minWidth: 90 }}
             >
-              {countryOptions.map(opt => (
+              {countryOptions.map((opt) => (
                 <option key={opt.code} value={opt.code}>
                   {opt.label} {opt.code !== "other" ? opt.code : ""}
                 </option>
@@ -228,8 +239,11 @@ const Signup = () => {
             {planKeys.map((plan) => (
               <option key={plan.key} value={plan.key}>
                 {plan.label}
-                {selectedBillingCycle && PricingPlan[selectedBillingCycle]?.[plan.key]
-                  ? ` (₦${PricingPlan[selectedBillingCycle][plan.key].price.toLocaleString()} ${selectedBillingCycle})`
+                {selectedBillingCycle &&
+                PricingPlan[selectedBillingCycle]?.[plan.key]
+                  ? ` (₦${PricingPlan[selectedBillingCycle][
+                      plan.key
+                    ].price.toLocaleString()} ${selectedBillingCycle})`
                   : ""}
               </option>
             ))}
@@ -254,19 +268,11 @@ const Signup = () => {
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
             <button
               type="button"
-              className="w-full sm:w-1/2 py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 transition"
-              onClick={() => handlePayment("opay")}
+              className="w-full py-3 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition"
+              onClick={handlePayment}
               disabled={loading || !selectedPlanKey || !selectedBillingCycle}
             >
-              Pay with Opay
-            </button>
-            <button
-              type="button"
-              className="w-full sm:w-1/2 py-3 rounded-lg font-semibold bg-purple-600 text-white hover:bg-purple-700 transition"
-              onClick={() => handlePayment("flutterwave")}
-              disabled={loading || !selectedPlanKey || !selectedBillingCycle}
-            >
-              Pay with Flutterwave
+              Pay with Moniepoint
             </button>
           </div>
         </form>
@@ -277,7 +283,8 @@ const Signup = () => {
         {/* Features Accordion */}
         <div className="mt-8">
           <h3 className="text-lg font-bold mb-2 text-center text-green-700">
-            What You Get with {selectedPlanMeta ? selectedPlanMeta.label : "..."} Plan
+            What You Get with{" "}
+            {selectedPlanMeta ? selectedPlanMeta.label : "..."} Plan
           </h3>
           {selectedPlan ? (
             <div className="space-y-2">
@@ -289,7 +296,9 @@ const Signup = () => {
                     onClick={() => handleFeatureToggle(idx)}
                   >
                     <span>{f.Headings}</span>
-                    <span className="ml-2">{featureOpenIndexes.includes(idx) ? "▲" : "▼"}</span>
+                    <span className="ml-2">
+                      {featureOpenIndexes.includes(idx) ? "▲" : "▼"}
+                    </span>
                   </button>
                   {featureOpenIndexes.includes(idx) && (
                     <div className="px-4 pb-3 text-green-900 text-sm bg-white rounded-b-lg animate-fade-in">
