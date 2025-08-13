@@ -179,11 +179,11 @@ export const faq = {
   faqs: [
     {
       heading: "How does K3BOT charge me?",
-      body: "Instead of charging on a per-message basis, WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this 24-hour conversation period, you can exchange any number of messages with the user, and you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or user. Below are the charges and details for different conversation types:\n\nMarketing conversation ( 85 paisa ): include promotional, announcement messages\nUtility conversations ( 14 paisa ): include transactional, follow up and update messages\nAuthentication conversation (14 paisa): include one-time-passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.\n* The above rates apply only to Indian numbers and are subject to change based on Meta's policies.",
+      body: "Instead of charging on a per-message basis, WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this 24-hour conversation period, you can exchange any number of messages with the user, and you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or user. Below are the charges and details for different conversation types:\n\nMarketing conversation (₦0.85): include promotional, announcement messages\nUtility conversations (₦0.14): include transactional, follow up and update messages\nAuthentication conversation (₦0.14): include one-time-passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.",
     },
     {
       heading: "How does WhatsApp messaging charges work?",
-      body: "Instead of charging on a per-message basis, WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this 24-hour conversation period, you can exchange any number of messages with the user, and you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or user. Below are the charges and details for different conversation types:\n\nMarketing conversation ( 85 paisa ): include promotional, announcement messages\nUtility conversations ( 14 paisa ): include transactional, follow up and update messages\nAuthentication conversation (14 paisa): include one-time-passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.\n* The above rates apply only to Indian numbers and are subject to change based on Meta's policies.",
+      body: "Instead of charging on a per-message basis, WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this 24-hour conversation period, you can exchange any number of messages with the user, and you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or user. Below are the charges and details for different conversation types:\n\nMarketing conversation (₦0.85): include promotional, announcement messages\nUtility conversations (₦0.14): include transactional, follow up and update messages\nAuthentication conversation (₦0.14): include one-time-passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.",
     },
     {
       heading:
@@ -196,7 +196,7 @@ export const faq = {
     },
     {
       heading: "How to add/recharge WhatsApp credit balance?",
-      body: "You can add a balance of Rs. 5000 or above from your dashboard under App settings > WhatsApp credit.",
+      body: "You can add a balance of ₦5000 or above from your dashboard under App settings > WhatsApp credit.",
     },
     {
       heading: "How can I see my credit usage?",
@@ -204,7 +204,7 @@ export const faq = {
     },
     {
       heading: "What is the minimum credit balance to be maintained?",
-      body: "There is no such minimum balance required, but your WhatsApp API will stop working once the credit balance reaches amount 0.",
+      body: "There is no such minimum balance required, but your WhatsApp API will stop working once the credit balance reaches ₦0.",
     },
     {
       heading: "Can I get a refund?",

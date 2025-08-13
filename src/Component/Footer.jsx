@@ -71,7 +71,10 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="/blog" className="hover:text-green-400 transition">
+                <a
+                  href="https://blog.k3bot.com/"
+                  className="hover:text-green-400 transition"
+                >
                   Blog
                 </a>
               </li>
