@@ -10,12 +10,14 @@ import Niche from "./Pages/Niche";
 import Corefeautures from "./Pages/Corefeautures";
 import About from "./Pages/About";
 import PaymentSuccess from "./Component/PaymentSuccess";
+import ScrollToTop from "./Component/ScrollUp";
 
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const App = () => {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
