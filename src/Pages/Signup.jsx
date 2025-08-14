@@ -35,7 +35,8 @@ const Signup = () => {
   const initialBillingCycle = location.state?.billingCycle || "";
 
   const [selectedPlanKey, setSelectedPlanKey] = useState(initialPlanKey);
-  const [selectedBillingCycle, setSelectedBillingCycle] = useState(initialBillingCycle);
+  const [selectedBillingCycle, setSelectedBillingCycle] =
+    useState(initialBillingCycle);
   const [formData, setFormData] = useState({
     name: "",
     business: "",
@@ -116,7 +117,12 @@ const Signup = () => {
         billingCycle: selectedBillingCycle,
         amount: selectedPlan.price,
       };
-      const res = await axios.post(`${backendUrl}/api/payment/monnify`, userDetails);
+      // Store signup data for use after payment
+      localStorage.setItem("signupData", JSON.stringify(userDetails));
+      const res = await axios.post(
+        `${backendUrl}/api/payment/monnify`,
+        userDetails
+      );
       if (res.data?.link) {
         window.location.href = res.data.link;
       } else {
@@ -272,7 +278,33 @@ const Signup = () => {
               onClick={handlePayment}
               disabled={loading || !selectedPlanKey || !selectedBillingCycle}
             >
-              Pay with Moniepoint
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4l3.536-3.536A8 8 0 114 12z"
+                    ></path>
+                  </svg>
+                  Processing...
+                </div>
+              ) : (
+                "Pay with Moniepoint"
+              )}
             </button>
           </div>
         </form>
