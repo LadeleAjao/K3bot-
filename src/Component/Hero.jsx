@@ -36,153 +36,163 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen">
-      {/* Blurred Hero Background */}
-      <div
-        className={`fixed inset-0 z-0 transition-all duration-300 ${
+    <div className="relative">
+      {/* HERO (now part of normal flow, so page can scroll) */}
+      <section
+        className={`w-full bg-[#F9FAFB] flex flex-col md:flex-row items-start md:items-center justify-between px-6 md:px-32 lg:px-48 py-24 overflow-hidden transition-all duration-300 ${
           showModal ? "blur-lg scale-105" : ""
         }`}
-        aria-hidden="true"
+        style={{ minHeight: "100vh" }}
+        aria-hidden={showModal ? "true" : "false"}
       >
-        <div
-          className="w-full bg-[#F9FAFB] flex flex-col md:flex-row items-start md:items-center justify-between px-6 md:px-32 lg:px-48 py-24 overflow-hidden"
-          style={{ minHeight: "100vh" }}
-        >
-          {/* Left Side */}
-          <div className="w-full md:w-1/2 space-y-10">
-            {/* Mobile Header */}
-            <div className="flex md:hidden items-center justify-center gap-4">
-              <h1 className="text-[22px] sm:text-[26px] font-bold text-black leading-tight w-1/2">
-                Everything You Need to Automate WhatsApp
-              </h1>
-              <Lottie
-                animationData={ChatboxAnimation}
-                className="h-[150px] sm:h-[180px] w-auto object-contain block"
-              />
-            </div>
-            {/* Desktop Header */}
-            <div className="hidden md:block">
-              <h1 className="text-5xl lg:text-7xl font-bold text-black leading-tight">
-                Everything You Need to Automate WhatsApp
-              </h1>
-            </div>
-            {/* Description & CTA */}
-            <div className="text-center md:text-left space-y-6">
-              <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-700 font-medium max-w-2xl mx-auto md:mx-0">
-                Simple setup. Zero code. Powerful features to scale your
-                business communication.
-              </h2>
-              <div className="flex justify-center md:justify-start">
-                <button
-                  className="text-white text-[16px] md:text-[20px] font-semibold px-6 py-3 md:px-10 md:py-5 rounded-xl bg-green-600 border border-green-600 shadow-[6px_6px_12px_#a7f3d0,-6px_-6px_12px_#ffffff] hover:bg-green-700 hover:border-green-700 transition-all duration-300"
-                  onClick={() => setShowModal(true)}
-                >
-                  Get a free demo
-                </button>
-              </div>
-            </div>
-            {/* Feature List */}
-            <div className="mt-6 space-y-4 text-left">
-              <p className="flex items-center text-gray-800 text-base md:text-lg">
-                <FaCheckCircle className="text-green-600 mr-2" /> Used by 200+
-                Nigerian SMEs
-              </p>
-              <p className="flex items-center text-gray-800 text-base md:text-lg">
-                <FaCheckCircle className="text-green-600 mr-2" /> GDPR &
-                WhatsApp Policy Compliant
-              </p>
-              <p className="flex items-center text-gray-800 text-base md:text-lg">
-                <FaCheckCircle className="text-green-600 mr-2" /> Supports
-                Paystack, Flutterwave & More
-              </p>
-            </div>
+        {/* Left Side */}
+        <div className="w-full md:w-1/2 space-y-10">
+          {/* Mobile Header */}
+          <div className="flex md:hidden items-center justify-center gap-4">
+            <h1 className="text-[22px] sm:text-[26px] font-bold text-black leading-tight w-1/2">
+              Everything You Need to Automate WhatsApp
+            </h1>
+            <Lottie
+              animationData={ChatboxAnimation}
+              className="h-[150px] sm:h-[180px] w-auto object-contain block"
+            />
           </div>
-          {/* Right Side */}
-          <div className="w-full md:w-1/2 mt-10 md:mt-0 flex flex-col items-center">
-            {/* Animation */}
-            <div className="hidden md:flex justify-center">
-              <Lottie
-                animationData={ChatboxAnimation}
-                className="max-h-[650px] lg:max-h-[750px] w-auto object-contain"
-              />
-            </div>
-            {/* Icons */}
-            <div className="mt-10 grid grid-cols-4 gap-6 text-center text-[30px] sm:text-[40px] md:text-[50px] text-black">
-              <FaHospital />
-              <FaPills />
-              <MdLocalPharmacy />
-              <MdFlight />
-            </div>
+          {/* Desktop Header */}
+          <div className="hidden md:block">
+            <h1 className="text-5xl lg:text-7xl font-bold text-black leading-tight">
+              Everything You Need to Automate WhatsApp
+            </h1>
           </div>
-        </div>
-      </div>
-
-      {/* Glassmorphism Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div
-            className="relative bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl rounded-2xl p-8 w-full max-w-md flex flex-col items-center animate-pop-up"
-            style={{
-              boxShadow:
-                "0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
-            }}
-          >
-            <button
-              className="absolute top-3 right-4 text-2xl text-gray-400 hover:text-gray-700"
-              onClick={() => setShowModal(false)}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            <h2 className="text-2xl font-bold mb-4 text-center text-white drop-shadow">
-              Get a Free Demo
+          {/* Description & CTA */}
+          <div className="text-center md:text-left space-y-6">
+            <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-700 font-medium max-w-2xl mx-auto md:mx-0">
+              Simple setup. Zero code. Powerful features to scale your business
+              communication.
             </h2>
-            <form onSubmit={handleDemoSubmit} className="space-y-4 w-full">
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
-                value={demoForm.name}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
-                value={demoForm.email}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Your Phone"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
-                value={demoForm.phone}
-                onChange={handleInputChange}
-                required
-              />
+            <div className="flex justify-center md:justify-start">
               <button
-                type="submit"
-                className="w-full py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 transition"
-                disabled={processing}
+                className="text-white text-[16px] md:text-[20px] font-semibold px-6 py-3 md:px-10 md:py-5 rounded-xl bg-green-600 border border-green-600 shadow-[6px_6px_12px_#a7f3d0,-6px_-6px_12px_#ffffff] hover:bg-green-700 hover:border-green-700 transition-all duration-300"
+                onClick={() => setShowModal(true)}
               >
-                {processing ? "Processing..." : "Process"}
+                Get a free demo
               </button>
-            </form>
-            {successMsg && (
-              <div className="mt-4 text-green-600 text-center">
-                {successMsg}
-              </div>
-            )}
-            {errorMsg && (
-              <div className="mt-4 text-red-600 text-center">{errorMsg}</div>
-            )}
+            </div>
+          </div>
+          {/* Feature List */}
+          <div className="mt-6 space-y-4 text-left">
+            <p className="flex items-center text-gray-800 text-base md:text-lg">
+              <FaCheckCircle className="text-green-600 mr-2" /> Used by 200+
+              Nigerian SMEs
+            </p>
+            <p className="flex items-center text-gray-800 text-base md:text-lg">
+              <FaCheckCircle className="text-green-600 mr-2" /> GDPR & WhatsApp
+              Policy Compliant
+            </p>
+            <p className="flex items-center text-gray-800 text-base md:text-lg">
+              <FaCheckCircle className="text-green-600 mr-2" /> Supports
+              Paystack, Flutterwave & More
+            </p>
           </div>
         </div>
+
+        {/* Right Side */}
+        <div className="w-full md:w-1/2 mt-10 md:mt-0 flex flex-col items-center">
+          {/* Animation */}
+          <div className="hidden md:flex justify-center">
+            <Lottie
+              animationData={ChatboxAnimation}
+              className="max-h-[650px] lg:max-h-[750px] w-auto object-contain"
+            />
+          </div>
+          {/* Icons */}
+          <div className="mt-10 grid grid-cols-4 gap-6 text-center text-[30px] sm:text-[40px] md:text-[50px] text-black">
+            <FaHospital />
+            <FaPills />
+            <MdLocalPharmacy />
+            <MdFlight />
+          </div>
+        </div>
+      </section>
+
+      {/* (Optional) Other sections of the home page would follow here … */}
+
+      {/* MODAL */}
+      {showModal && (
+        <>
+          {/* Dim overlay (keeps background design, no extra page layout shift) */}
+          <div
+            className="fixed inset-0 z-40 bg-black/40"
+            onClick={() => setShowModal(false)}
+          ></div>
+
+          {/* Glassmorphism Modal */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div
+              className="relative bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl rounded-2xl p-8 w-full max-w-md flex flex-col items-center animate-pop-up"
+              style={{
+                boxShadow:
+                  "0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
+                maxHeight: "90vh",
+                overflowY: "auto",
+              }}
+            >
+              <button
+                className="absolute top-3 right-4 text-2xl text-gray-400 hover:text-gray-700"
+                onClick={() => setShowModal(false)}
+                aria-label="Close"
+              >
+                &times;
+              </button>
+              <h2 className="text-2xl font-bold mb-4 text-center text-white drop-shadow">
+                Get a Free Demo
+              </h2>
+              <form onSubmit={handleDemoSubmit} className="space-y-4 w-full">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
+                  value={demoForm.name}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
+                  value={demoForm.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Your Phone"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
+                  value={demoForm.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 transition"
+                  disabled={processing}
+                >
+                  {processing ? "Processing..." : "Process"}
+                </button>
+              </form>
+              {successMsg && (
+                <div className="mt-4 text-green-600 text-center">
+                  {successMsg}
+                </div>
+              )}
+              {errorMsg && (
+                <div className="mt-4 text-red-600 text-center">{errorMsg}</div>
+              )}
+            </div>
+          </div>
+        </>
       )}
 
       {/* Animations */}
