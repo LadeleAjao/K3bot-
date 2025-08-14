@@ -179,39 +179,39 @@ export const faq = {
   faqs: [
     {
       heading: "How does K3BOT charge me?",
-      body: "Instead of charging on a per-message basis, WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this 24-hour conversation period, you can exchange any number of messages with the user, and you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or user. Below are the charges and details for different conversation types:\n\nMarketing conversation (₦0.85): include promotional, announcement messages\nUtility conversations (₦0.14): include transactional, follow up and update messages\nAuthentication conversation (₦0.14): include one-time-passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.",
+      body: "WhatsApp charges you based on Conversations, not per message. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. Within this 24-hour conversation period, you can exchange unlimited messages with the user, but you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or the user. Below are the charges and details for different conversation types:\n\nMarketing conversation (₦0.85): includes promotional, announcement messages\nUtility conversations (₦0.14): includes transactional, follow-up, and update messages\nAuthentication conversation (₦0.14): includes one-time passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.",
     },
     {
-      heading: "How does WhatsApp messaging charges work?",
-      body: "Instead of charging on a per-message basis, WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this 24-hour conversation period, you can exchange any number of messages with the user, and you will only be charged once for that period.\n\nThe cost of a conversation depends on the type of conversation initiated by your business or user. Below are the charges and details for different conversation types:\n\nMarketing conversation (₦0.85): include promotional, announcement messages\nUtility conversations (₦0.14): include transactional, follow up and update messages\nAuthentication conversation (₦0.14): include one-time-passcode (OTP) messages\n\nThe above conversation charges are deducted from your K3BOT prepaid wallet.",
+      heading: "How do WhatsApp messaging charges work?",
+      body: "WhatsApp charges you based on Conversations. A WhatsApp conversation is defined as a 24-hour period starting from the first business message sent to the user. During this period, you can exchange unlimited messages with the user and will only be charged once for that conversation.\n\nCharges vary by conversation type:\n\nMarketing conversation (₦0.85): includes promotional, announcement messages\nUtility conversations (₦0.14): includes transactional, follow-up, and update messages\nAuthentication conversation (₦0.14): includes one-time passcode (OTP) messages\n\nThese charges are automatically deducted from your K3BOT prepaid wallet.",
     },
     {
-      heading:
-        "Is there any charge on using WhatsApp payment (with Razorpay / PayU) offered by WhatsApp APIs?",
-      body: "K3BOT offers you to collect payments from users using WhatsApp Payment APIs. K3BOT executives will assist you in integrating WhatsApp API with your RazorPay or PayU account. There is no separate charge for using this feature with K3BOT.",
+      heading: "Is there any charge for using WhatsApp payment with K3BOT?",
+      body: "K3BOT allows you to collect payments from users directly through WhatsApp Payment APIs. Our team will assist you in integrating WhatsApp Payments with your preferred Nigerian payment gateway (such as Paystack or Flutterwave). There is no additional fee from K3BOT for using this feature.",
     },
     {
       heading: "Can I use an existing WhatsApp number with K3BOT?",
-      body: "Yes, you can use your existing WhatsApp application number or existing WhatsApp API number with K3BOT. For WhatsApp application number: You may need to delete the WhatsApp account for the number you want to apply the APIs for. Account can be deleted from WhatsApp Settings under the WhatsApp application. For WhatsApp API number: If the number is being used by another Business API, you still can get it migrated to K3BOT after getting the 2 Factor Authorization (2FA) pin disabled from your current BSP. Once migrated to WhatsApp Business API and linked to K3BOT, the number can be accessed on K3BOT (dashboard and mobile app) only. If it is a virtual number that is tied to K3BOT, then normal voice calls can be made as usual, but WhatsApp voice and video calls cannot be supported via WhatsApp Business API.",
+      body: "Yes, you can use your existing WhatsApp number with K3BOT. For a regular WhatsApp number: you may need to delete your WhatsApp account for that number before applying for the API. For an existing WhatsApp API number: if the number is with another provider, it can be migrated to K3BOT once the 2 Factor Authentication (2FA) PIN is disabled by your current provider. After migration, the number will work on K3BOT (dashboard and mobile app) only. Normal voice calls will still work, but WhatsApp voice and video calls are not supported via the API.",
     },
     {
       heading: "How to add/recharge WhatsApp credit balance?",
-      body: "You can add a balance of ₦5000 or above from your dashboard under App settings > WhatsApp credit.",
+      body: "You can add a balance of ₦5,000 or above from your K3BOT dashboard under App Settings > WhatsApp Credit.",
     },
     {
       heading: "How can I see my credit usage?",
-      body: "You can view your WhatsApp API credit usage in your dashboard under App Settings > WhatsApp credits. In the section you may see credits usage every month by conversation type & country wise.",
+      body: "You can check your WhatsApp API credit usage from your dashboard under App Settings > WhatsApp Credits. You can also view detailed usage by month, conversation type, and country.",
     },
     {
       heading: "What is the minimum credit balance to be maintained?",
-      body: "There is no such minimum balance required, but your WhatsApp API will stop working once the credit balance reaches ₦0.",
+      body: "There is no required minimum balance, but your WhatsApp API will stop working once your credit balance reaches ₦0.",
     },
     {
       heading: "Can I get a refund?",
-      body: "Subscription charges and WhatsApp conversation charges are non-refundable. You are eligible to request a refund only if the WhatsApp API fails to start on the dashboard.",
+      body: "Subscription charges and WhatsApp conversation charges are non-refundable. Refunds are only possible if the WhatsApp API fails to start on the dashboard.",
     },
   ],
 };
+
 
 export const plans = {
   starter: features.starter,
