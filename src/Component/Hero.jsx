@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Lottie from "lottie-react";
 import ChatboxAnimation from "../assets/Chatbox.json";
 import { FaCheckCircle, FaHospital, FaPills } from "react-icons/fa";
 import { MdLocalPharmacy, MdFlight } from "react-icons/md";
-import axios from "axios";
+import emailjs from "@emailjs/browser";
+// import emailjs from "emailjs-com";
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
@@ -15,26 +16,52 @@ const Hero = () => {
   const [processing, setProcessing] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const formRef = useRef();
 
   const handleInputChange = (e) => {
     setDemoForm({ ...demoForm, [e.target.name]: e.target.value });
   };
 
-  const handleDemoSubmit = async (e) => {
-    e.preventDefault();
-    setProcessing(true);
-    setSuccessMsg("");
-    setErrorMsg("");
-    try {
-      await axios.post("http://localhost:4000/api/google/demo-mail", demoForm);
-      setSuccessMsg("Demo request sent! Please check your email.");
-      setDemoForm({ name: "", email: "", phone: "" });
-    } catch (err) {
-      setErrorMsg("Failed to send demo request. Please try again.");
-    }
-    setProcessing(false);
+  const validate = (email) => {
+    const regex = /^[^@]+@[^@]+\.[^@]{2,4}$/;
+    return regex.test(email);
   };
 
+  
+const handleDemoSubmit = async (e) => {
+  e.preventDefault();
+  setProcessing(true);
+  setSuccessMsg("");
+  setErrorMsg("");
+
+  if (!validate(demoForm.email)) {
+    setErrorMsg("Please enter a valid email address.");
+    setProcessing(false);
+    return;
+  }
+
+  try {
+    await emailjs.send(
+      "service_cli4c8k", 
+      "template_ptql1iv", 
+      {
+        to_email: demoForm.email, 
+        from_name: demoForm.name, 
+        phone: demoForm.phone, 
+        reply_to: demoForm.email, 
+      },
+      "2wiLQzKa6T7OvVkwU" 
+    );
+
+    setSuccessMsg(`Demo details sent to  ${demoForm.email} successfully!`);
+    setDemoForm({ name: "", email: "", phone: "" }); 
+  } catch (err) {
+    console.error("Email send error:", err);
+    setErrorMsg("Failed to send welcome email.");
+  } finally {
+    setProcessing(false);
+  }
+};
   return (
     <div className="relative">
       {/* HERO (now part of normal flow, so page can scroll) */}
@@ -114,12 +141,10 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* (Optional) Other sections of the home page would follow here … */}
-
       {/* MODAL */}
       {showModal && (
         <>
-          {/* Dim overlay (keeps background design, no extra page layout shift) */}
+          {/* Dim overlay */}
           <div
             className="fixed inset-0 z-40 bg-black/40"
             onClick={() => setShowModal(false)}
@@ -146,7 +171,11 @@ const Hero = () => {
               <h2 className="text-2xl font-bold mb-4 text-center text-white drop-shadow">
                 Get a Free Demo
               </h2>
-              <form onSubmit={handleDemoSubmit} className="space-y-4 w-full">
+              <form
+                ref={formRef}
+                onSubmit={handleDemoSubmit}
+                className="space-y-4 w-full"
+              >
                 <input
                   type="text"
                   name="name"
