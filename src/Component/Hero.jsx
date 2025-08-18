@@ -3,7 +3,21 @@ import Lottie from "lottie-react";
 import ChatboxAnimation from "../assets/Chatbox.json";
 import { FaCheckCircle, FaHospital, FaPills } from "react-icons/fa";
 import { MdLocalPharmacy, MdFlight } from "react-icons/md";
-import emailjs from "@emailjs/browser";
+import { backendUrl } from "../App"; // ✅ import backend URL
+
+// Simple African country code list (can be expanded)
+const countryCodes = [
+  { code: "+234", name: "Nigeria" },
+  { code: "+254", name: "Kenya" },
+  { code: "+233", name: "Ghana" },
+  { code: "+27", name: "South Africa" },
+  { code: "+225", name: "Ivory Coast" },
+  { code: "+256", name: "Uganda" },
+  { code: "+237", name: "Cameroon" },
+  { code: "+250", name: "Rwanda" },
+  { code: "+255", name: "Tanzania" },
+  { code: "+212", name: "Morocco" },
+];
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
@@ -11,6 +25,7 @@ const Hero = () => {
     name: "",
     email: "",
     phone: "",
+    countryCode: "+234",
   });
   const [processing, setProcessing] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
@@ -19,6 +34,10 @@ const Hero = () => {
 
   const handleInputChange = (e) => {
     setDemoForm({ ...demoForm, [e.target.name]: e.target.value });
+  };
+
+  const handleCountryCodeChange = (e) => {
+    setDemoForm({ ...demoForm, countryCode: e.target.value });
   };
 
   const validate = (email) => {
@@ -39,22 +58,28 @@ const Hero = () => {
     }
 
     try {
-      await emailjs.send(
-        "service_cli4c8k",
-        "template_ptql1iv",
-        {
-          to_email: demoForm.email,
-          from_name: demoForm.name,
-          phone: demoForm.phone,
-          reply_to: demoForm.email,
+      // ✅ Call backend API
+      const res = await fetch(`${backendUrl}/api/demo/demo`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        "2wiLQzKa6T7OvVkwU"
-      );
+        body: JSON.stringify({
+          ...demoForm,
+          phone: `${demoForm.countryCode}${demoForm.phone}`,
+        }),
+      });
 
-      setSuccessMsg(`Welcome email sent to ${demoForm.email} successfully!`);
-      setDemoForm({ name: "", email: "", phone: "" });
+      const data = await res.json();
+
+      if (res.ok) {
+        setSuccessMsg(`Welcome email sent to ${demoForm.email} successfully!`);
+        setDemoForm({ name: "", email: "", phone: "", countryCode: "+234" });
+      } else {
+        setErrorMsg(data.message || "Failed to send welcome email.");
+      }
     } catch (err) {
-      setErrorMsg("Failed to send welcome email.");
+      setErrorMsg("Something went wrong. Please try again later.");
     } finally {
       setProcessing(false);
     }
@@ -99,7 +124,7 @@ const Hero = () => {
             </h2>
             <div className="flex justify-center md:justify-start">
               <button
-                className="text-white text-[16px] md:text-[20px] font-semibold px-6 py-3 md:px-10 md:py-5 rounded-xl bg-green-600 border border-green-600 shadow-[6px_6px_12px_#a7f3d0,-6px_-6px_12px_#ffffff] hover:bg-green-700 hover:border-green-700 transition-all duration-300"
+                className="text-white text-[16px] md:text-[20px] font-semibold px-6 py-3 md:px-10 md:py-5 rounded-xl bg-[#00BDFF] border border-[#00BDFF] shadow-[6px_6px_12px_#a7f3d0,-6px_-6px_12px_#ffffff] hover:bg-[#00065A] hover:border-[#00065A] transition-all duration-300"
                 onClick={() => setShowModal(true)}
               >
                 Get a free demo
@@ -109,22 +134,22 @@ const Hero = () => {
           {/* Feature List */}
           <div className="mt-4 md:mt-6 space-y-2 md:space-y-4 text-left">
             <div className="flex flex-wrap gap-2 md:gap-0">
-              <p className="flex items-center text-gray-800 text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-green-600 mr-2" /> Used by 200+
+              <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Used by 200+
                 Nigerian SMEs
               </p>
-              <p className="flex items-center text-gray-800 text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-green-600 mr-2" /> GDPR &
+              <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> GDPR &
                 WhatsApp Policy Compliant
               </p>
-              <p className="flex items-center text-gray-800 text-base md:text-lg">
-                <FaCheckCircle className="text-green-600 mr-2" /> Supports
+              <p className="flex items-center text-[#00065A] text-base md:text-lg">
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Supports
                 Paystack, Flutterwave & More
               </p>
             </div>
           </div>
           {/* Mobile Icons */}
-          <div className="flex md:hidden justify-center gap-2 mt-4 text-[26px] text-black">
+          <div className="flex md:hidden justify-center gap-2 mt-4 text-[26px] text-[#00BDFF]">
             <FaHospital />
             <FaPills />
             <MdLocalPharmacy />
@@ -142,7 +167,7 @@ const Hero = () => {
             />
           </div>
           {/* Desktop Icons */}
-          <div className="mt-8 hidden md:grid grid-cols-4 gap-6 text-center text-[40px] md:text-[50px] text-black">
+          <div className="mt-8 hidden md:grid grid-cols-4 gap-6 text-center text-[40px] md:text-[50px] text-[#00BDFF]">
             <FaHospital />
             <FaPills />
             <MdLocalPharmacy />
@@ -156,29 +181,29 @@ const Hero = () => {
         <>
           {/* Dim overlay */}
           <div
-            className="fixed inset-0 z-40 bg-black/40"
+            className="fixed inset-0 z-40 bg-[#00065A]/60"
             onClick={() => setShowModal(false)}
           ></div>
 
           {/* Glassmorphism Modal */}
           <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div
-              className="relative bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl rounded-2xl p-6 sm:p-8 w-full max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
+              className="relative bg-white/30 backdrop-blur-xl border border-[#00BDFF] shadow-2xl rounded-2xl p-6 sm:p-8 w-full max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
               style={{
                 boxShadow:
-                  "0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
+                  "0 8px 32px 0 rgba(0,6,90,0.37), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
                 maxHeight: "90vh",
                 overflowY: "auto",
               }}
             >
               <button
-                className="absolute top-3 right-4 text-2xl text-gray-400 hover:text-gray-700"
+                className="absolute top-3 right-4 text-2xl text-[#00065A] hover:text-[#00BDFF]"
                 onClick={() => setShowModal(false)}
                 aria-label="Close"
               >
                 &times;
               </button>
-              <h2 className="text-2xl font-bold mb-4 text-center text-white drop-shadow">
+              <h2 className="text-2xl font-bold mb-4 text-center text-[#00065A] drop-shadow">
                 Get a Free Demo
               </h2>
               <form
@@ -190,7 +215,7 @@ const Hero = () => {
                   type="text"
                   name="name"
                   placeholder="Your Name"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
+                  className="w-full px-4 py-3 border border-[#00BDFF] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-white"
                   value={demoForm.name}
                   onChange={handleInputChange}
                   required
@@ -199,30 +224,45 @@ const Hero = () => {
                   type="email"
                   name="email"
                   placeholder="Your Email"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
+                  className="w-full px-4 py-3 border border-[#00BDFF] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-white"
                   value={demoForm.email}
                   onChange={handleInputChange}
                   required
                 />
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Your Phone"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/70"
-                  value={demoForm.phone}
-                  onChange={handleInputChange}
-                  required
-                />
+                <div className="flex gap-2">
+                  <select
+                    name="countryCode"
+                    value={demoForm.countryCode}
+                    onChange={handleCountryCodeChange}
+                    className="px-2 py-3 border border-[#00BDFF] rounded-lg bg-white text-[#00065A] focus:outline-none"
+                    required
+                  >
+                    {countryCodes.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.name} ({c.code})
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Your Phone"
+                    className="w-full px-4 py-3 border border-[#00BDFF] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-white"
+                    value={demoForm.phone}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 transition"
+                  className="w-full py-3 rounded-lg font-semibold bg-[#A6EC49] text-[#00065A] hover:bg-[#00BDFF] hover:text-white transition"
                   disabled={processing}
                 >
                   {processing ? "Processing..." : "Process"}
                 </button>
               </form>
               {successMsg && (
-                <div className="mt-4 text-green-600 text-center">
+                <div className="mt-4 text-[#A6EC49] text-center">
                   {successMsg}
                 </div>
               )}
@@ -244,7 +284,14 @@ const Hero = () => {
           .animate-pop-up {
             animation: pop-up 0.4s cubic-bezier(.22,1,.36,1) both;
           }
-          /* Responsive hero height: 70vh for mobile, 100vh for md+ */
+          /* Responsive hero height: 60vh for mobile, 100vh for md+ */
+          @media (max-width: 767px) {
+            #hero-section {
+              min-height: 60vh !important;
+              padding-bottom: 3rem !important;
+              padding-top: 2rem !important;
+            }
+          }
           @media (min-width: 768px) {
             #hero-section {
               min-height: 100vh !important;
