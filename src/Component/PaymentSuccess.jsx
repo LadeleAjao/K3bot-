@@ -17,9 +17,7 @@ const PaymentSuccess = () => {
           setSubmitted(true);
           localStorage.removeItem("signupData");
         })
-        .catch(() => {
-          // Optionally handle error
-        });
+        .catch(() => {});
     }
   }, [submitted]);
 
@@ -56,14 +54,6 @@ const PaymentSuccess = () => {
         >
           Go to Home
         </Link>
-        {/* <div className="mt-4">
-          <Link
-            to="/dashboard"
-            className="text-blue-600 hover:underline font-medium"
-          >
-            Go to Dashboard
-          </Link>
-        </div> */}
       </div>
     </div>
   );
