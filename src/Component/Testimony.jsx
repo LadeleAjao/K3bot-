@@ -5,19 +5,17 @@ import "react-multi-carousel/lib/styles.css";
 import Female from "../assets/Profile_F.jpg";
 import Male from "../assets/Profile_M.jpg";
 
-// --- BRAND COLORS (replace with your actual brand guide values) ---
 const BRAND = {
-  primary: "#0052CC", // Brand blue
-  secondary: "#00BDFF", // Accent cyan
-  accent: "#A6EC49", // Success green
-  dark: "#00065A", // Brand dark
-  light: "#F9FAFB", // Brand light background
-  error: "#FF3B30", // Error red
-  font: "'Inter', 'Segoe UI', Arial, sans-serif", // Brand font
-  borderRadius: "1rem", // 16px
+  primary: "#0052CC",
+  secondary: "#00BDFF",
+  accent: "#A6EC49",
+  dark: "#00065A",
+  light: "#F9FAFB",
+  error: "#FF3B30",
+  font: "'Inter', 'Segoe UI', Arial, sans-serif",
+  borderRadius: "1rem",
   shadow: "0 8px 32px 0 rgba(0,82,204,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
 };
-// ---------------------------------------------------------------
 
 const testimonials = [
   {
@@ -28,7 +26,7 @@ const testimonials = [
       "As a developer, I value tools that save time and simplify processes. K3Bot does exactly that with seamless automation that integrates effortlessly into my workflow.",
   },
   {
-    image:Male ,
+    image: Male,
     name: "Masskay",
     position: "Real estate manager, Site manager",
     testimonial:
@@ -39,7 +37,7 @@ const testimonials = [
     name: "Alao Tomilola",
     position: "CEO, Speedtouch LMT",
     testimonial:
-       "For an e-commerce brand like ours, speed and customer engagement are everything. K3Bot ensures we respond instantly and keep customers happy.",
+      "For an e-commerce brand like ours, speed and customer engagement are everything. K3Bot ensures we respond instantly and keep customers happy.",
   },
   {
     image: Female,
@@ -55,30 +53,14 @@ const testimonials = [
     testimonial:
       "K3Bot has streamlined how our business interacts with customers. It’s efficient, reliable, and has quickly become an essential tool for growth.",
   },
- {
-  image: Male,
-  name: "Olaitan's Farm",
-  position: "Farm Manager",
-  testimonial:
-    "Running a farm means staying connected with customers and distributors. K3Bot helps us share updates, manage orders, and keep our community engaged with ease.",
-}
-
-  // {
-  //   image: "https://via.placeholder.com/150",
-  //   name: "Alice Johnson",
-  //   position: "Operations Manager, Demo Ltd.",
-  //   testimonial:
-  //     "From an operations perspective, K3Bot has cut down repetitive tasks and streamlined communication. It’s boosted our overall efficiency.",
-  // },
-  // {
-  //   image: "https://via.placeholder.com/150",
-  //   name: "Bob Brown",
-  //   position: "CTO, Tech Solutions",
-  //   testimonial:
-  //     "As a CTO, integration is always a concern. K3Bot stands out because it fits perfectly into our existing systems without extra hassle.",
-  // },
+  {
+    image: Male,
+    name: "Olaitan's Farm",
+    position: "Farm Manager",
+    testimonial:
+      "Running a farm means staying connected with customers and distributors. K3Bot helps us share updates, manage orders, and keep our community engaged with ease.",
+  },
 ];
-
 
 const responsive = {
   desktop: {
