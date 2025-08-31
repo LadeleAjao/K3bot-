@@ -63,7 +63,7 @@ const FAQSection = () => {
 };
 
 const Pricing = () => {
-  const [billingCycle, setBillingCycle] = useState("annually");
+  const [billingCycle, setBillingCycle] = useState("monthly");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const navigate = useNavigate();
 
@@ -101,14 +101,14 @@ const Pricing = () => {
         <span className="font-semibold text-lg text-[#00065A] font-avenir">Billing Cycle:</span>
         <button
           type="button"
-          onClick={() => setBillingCycle("annually")}
+          onClick={() => setBillingCycle("monthly")}
           className={`px-4 py-2 rounded-lg font-semibold shadow border transition font-avenir ${
-            billingCycle === "annually"
+            billingCycle === "monthly"
               ? "bg-[#00BDFF] text-white border-[#00BDFF]"
               : "bg-white text-[#00BDFF] border-[#00BDFF]"
           }`}
         >
-          Annually
+          monthly
         </button>
         <button
           type="button"
@@ -161,7 +161,7 @@ const Pricing = () => {
 
             <button
               onClick={() => handleGetStarted(planKey)}
-              className="mt-6 w-full bg-[#00BDFF] text-white py-2 px-4 rounded-lg hover:bg-[#00065A] transition font-semibold font-avenir"
+              className="mt-6 w-full bg-[#A6EC49] text-white py-2 px-4 rounded-lg hover:bg-[#2e4b08ff] transition font-semibold font-avenir"
             >
               Get Started
             </button>

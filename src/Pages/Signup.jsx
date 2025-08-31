@@ -4,6 +4,17 @@ import { backendUrl } from "../App";
 import { Link, useLocation } from "react-router-dom";
 import { PricingPlan } from "../assets/assets";
 
+// --- K3BOT BRAND COLORS & STYLES ---
+const BRAND = {
+  primary: "#00065A", // Navy
+  secondary: "#00BDFF", // Cyan
+  accent: "#A6EC49", // Green
+  light: "#F9FAFB", // Background
+  font: "'Avenir', 'Segoe UI', Arial, sans-serif",
+  borderRadius: "0.75rem",
+  shadow: "0 6px 20px rgba(0, 6, 90, 0.10)",
+};
+
 const planKeys = [
   { key: "starter", label: "Starter", audience: "5,000 Audience" },
   { key: "starterPlus", label: "Grow", audience: "20,000 Audience" },
@@ -25,7 +36,7 @@ const countryOptions = [
 ];
 
 const billingCycles = [
-  { key: "annually", label: "Annually" },
+  { key: "monthly", label: "Monthly" },
   { key: "quarterly", label: "Quarterly" },
 ];
 
@@ -47,7 +58,7 @@ const Signup = () => {
     billingCycle: initialBillingCycle,
   });
   const [loading, setLoading] = useState(false);
-  const [featureOpenIndexes, setFeatureOpenIndexes] = useState([]);
+  const [showMoreFeatures, setShowMoreFeatures] = useState(false);
 
   useEffect(() => {
     setFormData((prev) => ({
@@ -65,17 +76,14 @@ const Signup = () => {
 
   const handlePlanBoxClick = (key) => {
     setSelectedPlanKey(key);
-    setFeatureOpenIndexes([]);
   };
 
   const handlePlanChange = (e) => {
     setSelectedPlanKey(e.target.value);
-    setFeatureOpenIndexes([]);
   };
 
   const handleBillingCycleChange = (e) => {
     setSelectedBillingCycle(e.target.value);
-    setFeatureOpenIndexes([]);
   };
 
   const handleInputChange = (e) => {
@@ -91,12 +99,6 @@ const Signup = () => {
       ...prev,
       countryCode: e.target.value,
     }));
-  };
-
-  const handleFeatureToggle = (idx) => {
-    setFeatureOpenIndexes((prev) =>
-      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
-    );
   };
 
   // Monnify Payment
@@ -118,7 +120,10 @@ const Signup = () => {
         amount: selectedPlan.price,
       };
       localStorage.setItem("signupData", JSON.stringify(userDetails));
-      const res = await axios.post(`${backendUrl}/api/payment/monnify`, userDetails);
+      const res = await axios.post(
+        `${backendUrl}/api/payment/monnify`,
+        userDetails
+      );
       if (res.data?.link) {
         window.location.href = res.data.link;
       } else {
@@ -133,31 +138,48 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white py-26 px-4 font-avenir">
-      <div className="w-full max-w-lg mx-auto">
+    <div
+      className="min-h-screen flex flex-col items-center py-20 px-4"
+      style={{
+        background: `linear-gradient(120deg, ${BRAND.light} 60%, #e6f7ff 100%)`,
+        fontFamily: BRAND.font,
+      }}
+    >
+      <div
+        className="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-10"
+        style={{
+          borderRadius: BRAND.borderRadius,
+          boxShadow: BRAND.shadow,
+        }}
+      >
         <Link
           to="/"
-          className="block text-center text-2xl font-bold mb-6 text-[#00BDFF] hover:underline font-['Druk Wide Bold']"
+          className="block text-center text-2xl font-bold mb-8 text-[#00BDFF] hover:underline"
+          style={{ fontFamily: "'Druk Wide', 'Avenir', Arial, sans-serif" }}
         >
           Back to Home
         </Link>
 
         {/* Plans */}
-        <div className="grid grid-cols-3 gap-6 justify-center mb-8 overflow-x-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 justify-center mb-8">
           {planKeys.map((plan) => (
             <button
               type="button"
               key={plan.key}
               onClick={() => handlePlanBoxClick(plan.key)}
-              className={`border rounded-xl px-6 py-4 text-center bg-white flex flex-col items-center transition-all focus:outline-none ${
+              className={`border px-6 py-4 text-center bg-white flex flex-col items-center transition-all focus:outline-none ${
                 selectedPlanKey === plan.key
                   ? "border-[#00BDFF] shadow-lg ring-2 ring-[#A6EC49]"
                   : "border-gray-200"
               }`}
+              style={{
+                borderRadius: BRAND.borderRadius,
+                minWidth: 0,
+                fontFamily: "'Druk Wide', 'Avenir', Arial, sans-serif",
+              }}
               tabIndex={0}
-              style={{ minWidth: 0 }}
             >
-              <div className="font-bold text-lg sm:text-xl mb-1 text-[#00065A] font-['Druk Wide Bold']">
+              <div className="font-bold text-lg sm:text-xl mb-1 text-[#00065A]">
                 {plan.label}
               </div>
               <div className="text-gray-600 text-sm mb-1">{plan.audience}</div>
@@ -174,7 +196,13 @@ const Signup = () => {
         </div>
 
         {/* Form */}
-        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 text-[#00065A] font-['Druk Wide Bold']">
+        <h2
+          className="text-xl sm:text-2xl font-bold text-center mb-4"
+          style={{
+            color: BRAND.primary,
+            fontFamily: "'Druk Wide', 'Avenir', Arial, sans-serif",
+          }}
+        >
           Get Started{" "}
           {selectedPlanMeta ? `with ${selectedPlanMeta.label} Plan` : ""}
         </h2>
@@ -183,35 +211,42 @@ const Signup = () => {
             type="text"
             name="name"
             placeholder="John Doe"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-[#F9FAFB]"
             value={formData.name}
             onChange={handleInputChange}
             required
+            style={{ borderRadius: BRAND.borderRadius }}
           />
           <input
             type="text"
             name="business"
             placeholder="Business Name"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-[#F9FAFB]"
             value={formData.business}
             onChange={handleInputChange}
             required
+            style={{ borderRadius: BRAND.borderRadius }}
           />
           <input
             type="email"
             name="email"
             placeholder="Email Address"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-[#F9FAFB]"
             value={formData.email}
             onChange={handleInputChange}
             required
+            style={{ borderRadius: BRAND.borderRadius }}
           />
           <div className="flex">
             <select
               className="border border-gray-300 rounded-l-lg px-3 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
               value={formData.countryCode}
               onChange={handleCountryCodeChange}
-              style={{ minWidth: 90 }}
+              style={{
+                minWidth: 90,
+                borderTopLeftRadius: BRAND.borderRadius,
+                borderBottomLeftRadius: BRAND.borderRadius,
+              }}
             >
               {countryOptions.map((opt) => (
                 <option key={opt.code} value={opt.code}>
@@ -223,20 +258,25 @@ const Signup = () => {
               type="tel"
               name="phone"
               placeholder="Phone number"
-              className="w-full px-4 py-3 border-t border-b border-r border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
+              className="w-full px-4 py-3 border-t border-b border-r border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-[#F9FAFB]"
               value={formData.phone}
               onChange={handleInputChange}
               required
+              style={{
+                borderTopRightRadius: BRAND.borderRadius,
+                borderBottomRightRadius: BRAND.borderRadius,
+              }}
             />
           </div>
 
           {/* Plan Dropdown */}
           <select
             name="plan"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-[#F9FAFB]"
             value={selectedPlanKey}
             onChange={handlePlanChange}
             required
+            style={{ borderRadius: BRAND.borderRadius }}
           >
             <option value="" disabled>
               Select a plan
@@ -257,10 +297,11 @@ const Signup = () => {
           {/* Billing Cycle Dropdown */}
           <select
             name="billingCycle"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF] bg-[#F9FAFB]"
             value={selectedBillingCycle}
             onChange={handleBillingCycleChange}
             required
+            style={{ borderRadius: BRAND.borderRadius }}
           >
             <option value="" disabled>
               Select billing cycle
@@ -275,9 +316,16 @@ const Signup = () => {
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
             <button
               type="button"
-              className="w-full py-3 rounded-lg font-semibold bg-[#00BDFF] text-white hover:bg-[#00065A] transition"
+              className="w-full py-3 rounded-lg font-semibold text-white transition"
               onClick={handlePayment}
               disabled={loading || !selectedPlanKey || !selectedBillingCycle}
+              style={{
+                background: BRAND.accent,
+                borderRadius: BRAND.borderRadius,
+                fontWeight: 700,
+                fontSize: "1rem",
+                letterSpacing: "0.04em",
+              }}
             >
               {loading ? (
                 <div className="flex justify-center items-center">
@@ -315,33 +363,66 @@ const Signup = () => {
           Secure Checkout — your information is safe
         </div>
 
-        {/* Features Accordion */}
+        {/* Features */}
         <div className="mt-8">
-          <h3 className="text-lg font-bold mb-2 text-center text-[#00065A] font-['Druk Wide Bold']">
+          <h3
+            className="text-lg font-bold mb-2 text-center"
+            style={{
+              color: BRAND.primary,
+              fontFamily: "'Druk Wide', 'Avenir', Arial, sans-serif",
+            }}
+          >
             What You Get with{" "}
             {selectedPlanMeta ? selectedPlanMeta.label : "..."} Plan
           </h3>
+
           {selectedPlan ? (
             <div className="space-y-2">
-              {selectedPlan.features.map((f, idx) => (
-                <div key={idx} className="border border-[#A6EC49] rounded-lg">
-                  <button
-                    type="button"
-                    className="w-full flex justify-between items-center px-4 py-3 font-semibold text-[#00BDFF] bg-[#F0FDFA] rounded-lg focus:outline-none transition"
-                    onClick={() => handleFeatureToggle(idx)}
-                  >
-                    <span>{f.Headings}</span>
-                    <span className="ml-2">
-                      {featureOpenIndexes.includes(idx) ? "▲" : "▼"}
-                    </span>
-                  </button>
-                  {featureOpenIndexes.includes(idx) && (
-                    <div className="px-4 pb-3 text-[#00065A] text-sm bg-white rounded-b-lg animate-fade-in">
-                      {f.Wordings}
-                    </div>
-                  )}
+              {/* First 5 features always visible */}
+              {selectedPlan.features.slice(0, 5).map((f, idx) => (
+                <div
+                  key={idx}
+                  className="border px-4 py-3 rounded-lg text-[#00065A] bg-[#F9FAFB] text-sm font-medium"
+                  style={{
+                    borderColor: BRAND.accent,
+                    borderRadius: BRAND.borderRadius,
+                  }}
+                >
+                  <span className="font-semibold text-[#00BDFF] block">
+                    {f.Headings}
+                  </span>
+                  <span>{f.Wordings}</span>
                 </div>
               ))}
+
+              {/* Extra features */}
+              {showMoreFeatures &&
+                selectedPlan.features.slice(5).map((f, idx) => (
+                  <div
+                    key={idx + 5}
+                    className="border px-4 py-3 rounded-lg text-[#00065A] bg-[#F9FAFB] text-sm font-medium"
+                    style={{
+                      borderColor: BRAND.accent,
+                      borderRadius: BRAND.borderRadius,
+                    }}
+                  >
+                    <span className="font-semibold text-[#00BDFF] block">
+                      {f.Headings}
+                    </span>
+                    <span>{f.Wordings}</span>
+                  </div>
+                ))}
+
+              {/* Toggle Button */}
+              {selectedPlan.features.length > 5 && (
+                <button
+                  type="button"
+                  onClick={() => setShowMoreFeatures(!showMoreFeatures)}
+                  className="w-full mt-2 py-2 text-sm font-semibold text-[#00BDFF] hover:underline"
+                >
+                  {showMoreFeatures ? "Show Less ▲" : "Show More ▼"}
+                </button>
+              )}
             </div>
           ) : (
             <div className="text-center text-gray-400 py-6">

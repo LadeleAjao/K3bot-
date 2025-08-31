@@ -2,35 +2,71 @@ import React from "react";
 import ProfileImg from "../assets/Profile.jpg";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 
+const BRAND = {
+  primary: "#00065A", // Dark navy
+  cyan: "#00BDFF", // Accent cyan
+  green: "#A6EC49", // Success green
+  light: "#F9FAFB", // Neutral light
+  font: "'Avenir', 'Segoe UI', Arial, sans-serif",
+  shadow: "0 6px 20px rgba(0, 6, 90, 0.15)",
+};
+
 const About = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center py-26 px-4">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-2 text-black">
+    <div
+      className="min-h-screen flex flex-col items-center py-20 px-6"
+      style={{ backgroundColor: BRAND.light, fontFamily: BRAND.font }}
+    >
+      {/* Page Title */}
+      <h1
+        className="text-4xl md:text-5xl font-extrabold text-center mb-3 tracking-wide uppercase"
+        style={{ color: BRAND.primary }}
+      >
         About Us
       </h1>
-      <p className="text-center text-lg md:text-xl text-gray-700 mb-10">
-        Empowering African SMEs with AI automation.
+      <p
+        className="text-center text-lg md:text-xl mb-12 max-w-2xl"
+        style={{ color: BRAND.primary }}
+      >
+        Empowering African SMEs with{" "}
+        <span style={{ color: BRAND.cyan, fontWeight: "700" }}>AI automation</span>.
       </p>
-      <div className="w-full max-w-7xl flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-24">
-        <div className="flex-shrink-0 flex justify-center items-center w-full md:w-auto">
+
+      {/* Content Wrapper */}
+      <div className="w-full max-w-6xl flex flex-col md:flex-row items-start gap-12 md:gap-20">
+        {/* Profile Image */}
+        <div className="flex-shrink-0">
           <img
             src={ProfileImg}
             alt="Ladele Ajao"
-            className="w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-xl object-cover shadow-md"
+            className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-2xl object-cover"
+            style={{ boxShadow: BRAND.shadow }}
           />
         </div>
-        <div className="flex-1 mt-8 md:mt-0">
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-1 text-black">
+
+        {/* Founder Info */}
+        <div className="flex-1">
+          <h2
+            className="text-2xl md:text-3xl font-extrabold mb-2 uppercase tracking-wide"
+            style={{ color: BRAND.primary }}
+          >
             Meet the Founder
           </h2>
-          <p className="font-semibold text-base md:text-lg mb-2 text-black">
+          <p
+            className="font-semibold text-base md:text-lg mb-4"
+            style={{ color: BRAND.cyan }}
+          >
             Ladele Ajao &bull; CEO &amp; Founder of K3Bot
           </p>
-          <p className="text-gray-900 mb-4 leading-relaxed text-base md:text-lg">
-            Ladele Ajao is the visionary founder and CEO of K3Bot, an AI-powered
-            automation platform designed to help African businesses streamline
-            their operations, scale customer engagement, and grow revenue with
-            intelligent, no code tools.
+
+          <p
+            className="mb-6 leading-relaxed text-base md:text-lg"
+            style={{ color: "#222" }}
+          >
+            Ladele Ajao is the visionary founder and CEO of K3Bot, an
+            AI-powered automation platform designed to help African businesses
+            streamline their operations, scale customer engagement, and grow
+            revenue with intelligent, no code tools.
             <br />
             <br />
             Originally from Oyo State, Nigeria, and now based in Australia,
@@ -56,29 +92,38 @@ const About = () => {
             Ladele isn’t just building software—he’s building a movement for
             digital transformation in Africa.
           </p>
-          <blockquote className="italic text-lg text-black border-l-4 border-green-600 pl-4 mb-4">
+
+          {/* Quote */}
+          <blockquote
+            className="italic text-lg border-l-4 pl-4 mb-6"
+            style={{ borderColor: BRAND.green, color: BRAND.primary }}
+          >
             "My mission is to simplify technology so African businesses can
             scale with confidence."
           </blockquote>
-          <div className="flex items-center gap-6 mt-4">
+
+          {/* Social Links */}
+          <div className="flex items-center gap-6">
             <a
-              href="https://linkedin.com/in/ladeleajao"
+              href="https://www.linkedin.com/in/ladele-ajao/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-black text-2xl font-bold hover:text-green-700 transition"
+              className="text-3xl transition transform hover:scale-110"
+              style={{ color: BRAND.primary }}
             >
               <FaLinkedin />
             </a>
-            <a
+            {/* <a
               href="https://twitter.com/ladeleajao"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"
-              className="text-black text-2xl font-bold hover:text-green-700 transition"
+              className="text-3xl transition transform hover:scale-110"
+              style={{ color: BRAND.primary }}
             >
               <FaTwitter />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

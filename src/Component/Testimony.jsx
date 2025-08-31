@@ -2,6 +2,8 @@ import React from "react";
 import WhatsApp from "../assets/Whatsapp.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Female from "../assets/Profile_F.jpg";
+import Male from "../assets/Profile_M.jpg";
 
 // --- BRAND COLORS (replace with your actual brand guide values) ---
 const BRAND = {
@@ -19,62 +21,64 @@ const BRAND = {
 
 const testimonials = [
   {
-    image: WhatsApp,
-    name: "John Doe",
+    image: Male,
+    name: "Adigun Oreoluwa",
+    position: "Web Developer",
+    testimonial:
+      "As a developer, I value tools that save time and simplify processes. K3Bot does exactly that with seamless automation that integrates effortlessly into my workflow.",
+  },
+  {
+    image:Male ,
+    name: "Masskay",
+    position: "Real estate manager, Site manager",
+    testimonial:
+      "Managing client communications in real estate can be overwhelming. K3Bot makes it easy to stay responsive, and that has helped us close deals faster.",
+  },
+  {
+    image: Female,
+    name: "Alao Tomilola",
+    position: "CEO, Speedtouch LMT",
+    testimonial:
+       "For an e-commerce brand like ours, speed and customer engagement are everything. K3Bot ensures we respond instantly and keep customers happy.",
+  },
+  {
+    image: Female,
+    name: "DressTee",
+    position: "CEO, DressTee",
+    testimonial:
+      "For a fashion brand like ours, speed and customer engagement are everything. K3Bot ensures we respond instantly and keep customers happy.",
+  },
+  {
+    image: Male,
+    name: "Adebayo",
     position: "CEO, Example Corp",
     testimonial:
-      "K3Bot has transformed our customer engagement. The automation features are incredibly effective and easy to use.",
+      "K3Bot has streamlined how our business interacts with customers. It’s efficient, reliable, and has quickly become an essential tool for growth.",
   },
-  {
-    image: "https://via.placeholder.com/150",
-    name: "Jane Smith",
-    position: "Marketing Director, Sample Inc.",
-    testimonial:
-      "With K3Bot, we’ve seen a significant increase in our sales and customer satisfaction. It’s a game changer.",
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    name: "Alice Johnson",
-    position: "Operations Manager, Demo Ltd.",
-    testimonial:
-      "The ease of use and powerful features of K3Bot have made our operations much smoother and efficient.",
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    name: "Bob Brown",
-    position: "CTO, Tech Solutions",
-    testimonial:
-      "K3Bot’s integration capabilities are top-notch. It fits perfectly into our existing tech stack.",
-  },
-  {
-    image: WhatsApp,
-    name: "John Doe",
-    position: "CEO, Example Corp",
-    testimonial:
-      "K3Bot has transformed our customer engagement. The automation features are incredibly effective and easy to use.",
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    name: "Jane Smith",
-    position: "Marketing Director, Sample Inc.",
-    testimonial:
-      "With K3Bot, we’ve seen a significant increase in our sales and customer satisfaction. It’s a game changer.",
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    name: "Alice Johnson",
-    position: "Operations Manager, Demo Ltd.",
-    testimonial:
-      "The ease of use and powerful features of K3Bot have made our operations much smoother and efficient.",
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    name: "Bob Brown",
-    position: "CTO, Tech Solutions",
-    testimonial:
-      "K3Bot’s integration capabilities are top-notch. It fits perfectly into our existing tech stack.",
-  },
+ {
+  image: Male,
+  name: "Olaitan's Farm",
+  position: "Farm Manager",
+  testimonial:
+    "Running a farm means staying connected with customers and distributors. K3Bot helps us share updates, manage orders, and keep our community engaged with ease.",
+}
+
+  // {
+  //   image: "https://via.placeholder.com/150",
+  //   name: "Alice Johnson",
+  //   position: "Operations Manager, Demo Ltd.",
+  //   testimonial:
+  //     "From an operations perspective, K3Bot has cut down repetitive tasks and streamlined communication. It’s boosted our overall efficiency.",
+  // },
+  // {
+  //   image: "https://via.placeholder.com/150",
+  //   name: "Bob Brown",
+  //   position: "CTO, Tech Solutions",
+  //   testimonial:
+  //     "As a CTO, integration is always a concern. K3Bot stands out because it fits perfectly into our existing systems without extra hassle.",
+  // },
 ];
+
 
 const responsive = {
   desktop: {

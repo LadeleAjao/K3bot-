@@ -15,9 +15,9 @@ const Home = () => {
       <section className="w-full block md:hidden">
         <Corefeautures />
       </section>
-      {/* <section className="w-full hidden md:block">
+      <section className="w-full hidden md:block">
         <Corefeautures />
-      </section> */}
+      </section>
       <section className="w-full">
         <Testimony />
       </section>

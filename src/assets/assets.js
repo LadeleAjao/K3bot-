@@ -145,31 +145,31 @@ const features = {
 };
 
 export const PricingPlan = {
-  annually: {
+  monthly: {
     starter: {
-      price: 1500,
+      price: 30000,
       features: features.starter,
     },
     starterPlus: {
-      price: 3000,
+      price: 40000,
       features: features.starterPlus,
     },
     premium: {
-      price: 7000,
+      price: 100000,
       features: features.premium,
     },
   },
   quarterly: {
     starter: {
-      price: 450,
+      price: 28000,
       features: features.starter,
     },
     starterPlus: {
-      price: 900,
+      price: 38000,
       features: features.starterPlus,
     },
     premium: {
-      price: 2200,
+      price: 93000,
       features: features.premium,
     },
   },
