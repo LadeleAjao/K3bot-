@@ -3,6 +3,20 @@ import WhatsApp from "../assets/Whatsapp.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+// --- BRAND COLORS (replace with your actual brand guide values) ---
+const BRAND = {
+  primary: "#0052CC", // Brand blue
+  secondary: "#00BDFF", // Accent cyan
+  accent: "#A6EC49", // Success green
+  dark: "#00065A", // Brand dark
+  light: "#F9FAFB", // Brand light background
+  error: "#FF3B30", // Error red
+  font: "'Inter', 'Segoe UI', Arial, sans-serif", // Brand font
+  borderRadius: "1rem", // 16px
+  shadow: "0 8px 32px 0 rgba(0,82,204,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
+};
+// ---------------------------------------------------------------
+
 const testimonials = [
   {
     image: WhatsApp,
@@ -79,11 +93,25 @@ const responsive = {
 
 const Testimony = () => {
   return (
-    <div className="bg-white py-12 px-4 md:px-10">
-      <h2 className="text-3xl font-bold text-center mb-8">
+    <div
+      className="py-12 px-4 md:px-10"
+      style={{
+        fontFamily: BRAND.font,
+        background: `linear-gradient(135deg, ${BRAND.light} 60%, #e6f7ff 100%)`,
+        borderRadius: BRAND.borderRadius,
+        boxShadow: BRAND.shadow,
+      }}
+    >
+      <h2
+        className="text-3xl font-bold text-center mb-8"
+        style={{ color: BRAND.primary, letterSpacing: ".01em" }}
+      >
         What Our Clients Say
       </h2>
-      <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
+      <p
+        className="text-center max-w-2xl mx-auto mb-8"
+        style={{ color: BRAND.dark }}
+      >
         At K3Bot, our success is measured by the satisfaction and growth of the
         businesses we serve. From small startups to established enterprises, our
         clients rely on us to simplify customer engagement and streamline
@@ -109,38 +137,51 @@ const Testimony = () => {
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="bg-gray-100 shadow rounded-lg p-4 flex flex-col items-center text-center mx-1"
+              className="shadow rounded-lg p-6 flex flex-col items-center text-center mx-1 border"
+              style={{
+                background: "#fff",
+                borderColor: BRAND.secondary,
+                borderRadius: BRAND.borderRadius,
+                boxShadow: BRAND.shadow,
+              }}
             >
               <img
                 src={
                   typeof item.image === "string" ? item.image : item.image.src
                 }
                 alt={item.name}
-                className="w-24 h-24 rounded-full object-cover mb-4"
+                className="w-24 h-24 rounded-full object-cover mb-4 border-4"
+                style={{
+                  borderColor: BRAND.accent,
+                  borderWidth: "4px",
+                  borderStyle: "solid",
+                }}
               />
-              <p className="text-gray-700 text-sm mb-3">{item.testimonial}</p>
-              <h4 className="text-lg font-semibold">{item.name}</h4>
-              <span className="text-sm text-gray-500">{item.position}</span>
+              <p className="mb-3" style={{ color: BRAND.dark, fontSize: "1rem" }}>
+                {item.testimonial}
+              </p>
+              <h4
+                className="text-lg font-semibold"
+                style={{ color: BRAND.primary }}
+              >
+                {item.name}
+              </h4>
+              <span className="text-sm" style={{ color: BRAND.secondary }}>
+                {item.position}
+              </span>
             </div>
           ))}
         </Carousel>
-        <div className="flex justify-center mt-4 space-x-2">
-          {testimonials.map((_, i) => (
-            <span
-              key={i}
-              className="w-3 h-3 rounded-full bg-gray-300 inline-block"
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
 };
+
 const CustomDot = ({ onClick, active }) => {
   return (
     <li
       className={`inline-block w-3 h-3 mx-1 rounded-full cursor-pointer ${
-        active ? "bg-indigo-600" : "bg-gray-300"
+        active ? "bg-[#A6EC49]" : "bg-gray-300"
       }`}
       onClick={onClick}
     />

@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import ChatboxAnimation from "../assets/Chatbox.json";
 import { FaCheckCircle, FaHospital, FaPills } from "react-icons/fa";
 import { MdLocalPharmacy, MdFlight } from "react-icons/md";
-import { backendUrl } from "../App"; // ✅ import backend URL
+import { backendUrl } from "../App";
 
 // Simple African country code list (can be expanded)
 const countryCodes = [
@@ -58,7 +58,6 @@ const Hero = () => {
     }
 
     try {
-      // ✅ Call backend API
       const res = await fetch(`${backendUrl}/api/demo/demo`, {
         method: "POST",
         headers: {
@@ -135,16 +134,13 @@ const Hero = () => {
           <div className="mt-4 md:mt-6 space-y-2 md:space-y-4 text-left">
             <div className="flex flex-wrap gap-2 md:gap-0">
               <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Used by 200+
-                Nigerian SMEs
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Used by 200+ Nigerian SMEs
               </p>
               <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> GDPR &
-                WhatsApp Policy Compliant
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> GDPR & WhatsApp Policy Compliant
               </p>
               <p className="flex items-center text-[#00065A] text-base md:text-lg">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Supports
-                Paystack, Flutterwave & More
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Supports Paystack, Flutterwave & More
               </p>
             </div>
           </div>
@@ -188,11 +184,12 @@ const Hero = () => {
           {/* Glassmorphism Modal */}
           <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div
-              className="relative bg-white/30 backdrop-blur-xl border border-[#00BDFF] shadow-2xl rounded-2xl p-6 sm:p-8 w-full max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
+              className="relative bg-white/30 backdrop-blur-xl border border-[#00BDFF] shadow-2xl rounded-2xl p-8 sm:p-10 w-full max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
               style={{
                 boxShadow:
                   "0 8px 32px 0 rgba(0,6,90,0.37), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
                 maxHeight: "90vh",
+                minHeight: "auto",
                 overflowY: "auto",
               }}
             >
@@ -284,12 +281,18 @@ const Hero = () => {
           .animate-pop-up {
             animation: pop-up 0.4s cubic-bezier(.22,1,.36,1) both;
           }
-          /* Responsive hero height: 60vh for mobile, 100vh for md+ */
+          /* Responsive hero height: 30vh for mobile, increased padding-y */
           @media (max-width: 767px) {
             #hero-section {
-              min-height: 60vh !important;
-              padding-bottom: 3rem !important;
-              padding-top: 2rem !important;
+              min-height: 30vh !important;
+              padding-bottom: 6rem !important;
+              padding-top: 6rem !important;
+            }
+            .fixed .bg-white\\/30 {
+              max-width: 95vw !important;
+              min-width: 0 !important;
+              padding-top: 2.5rem !important;
+              padding-bottom: 2.5rem !important;
             }
           }
           @media (min-width: 768px) {

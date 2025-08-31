@@ -3,47 +3,55 @@ import LOGO from "../assets/K3BOT.png";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// --- K3BOT BRAND COLORS & STYLES ---
+const BRAND = {
+  primary: "#00065A", // Dark navy (core)
+  secondary: "#00BDFF", // Cyan accent
+  accent: "#A6EC49", // Success green
+  light: "#F9FAFB", // Neutral background
+  font: "'Avenir', 'Segoe UI', Arial, sans-serif",
+  borderRadius: "0.75rem",
+  shadow: "0 6px 20px rgba(0, 6, 90, 0.15)",
+};
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Animation classes for mobile menu (slide from left)
   const mobileMenuClasses = isOpen
-    ? "fixed inset-0 z-50 bg-white flex flex-col animate-slide-in-left"
+    ? "fixed inset-0 z-50 flex flex-col animate-slide-in-left"
     : "hidden";
 
   return (
-    <nav className="fixed top-0 left-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
+    <nav
+      className="fixed top-0 left-0 z-50 w-full shadow-sm"
+      style={{
+        background: `linear-gradient(90deg, ${BRAND.primary} 0%, ${BRAND.secondary} 100%)`,
+        fontFamily: BRAND.font,
+      }}
+    >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <Link to="/" aria-label="Go to Home">
-            <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
-          </Link>
-          <Link to="/" aria-label="Go to Home">
-            <span className="text-2xl font-bold text-green-700 tracking-tight cursor-pointer">
-              K3Bot
-            </span>
-          </Link>
-        </div>
+        <Link to="/" aria-label="Go to Home">
+          <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
+        </Link>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Nav */}
         <ul className="hidden md:flex items-center space-x-8">
           <li>
             <Link
               to="/usecase"
-              className="text-gray-900 hover:text-green-600 font-semibold text-lg px-4 py-2 rounded transition duration-200"
-              style={{ letterSpacing: ".01em" }}
+              className="font-semibold text-base px-4 py-2 tracking-wide uppercase transition"
+              style={{ color: "#fff", borderRadius: BRAND.borderRadius }}
             >
-              Usecase
+              Use Cases
             </Link>
           </li>
           <li>
             <Link
               to="/pricing"
-              className="text-gray-900 hover:text-green-600 font-semibold text-lg px-4 py-2 rounded transition duration-200"
-              style={{ letterSpacing: ".01em" }}
+              className="font-semibold text-base px-4 py-2 tracking-wide uppercase transition"
+              style={{ color: "#fff", borderRadius: BRAND.borderRadius }}
             >
               Pricing
             </Link>
@@ -51,8 +59,14 @@ const Navbar = () => {
           <li>
             <Link
               to="/signup"
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold text-lg shadow transition"
-              style={{ letterSpacing: ".01em" }}
+              className="px-6 py-2 rounded-lg font-bold text-sm uppercase shadow-md transition"
+              style={{
+                background: BRAND.accent,
+                color: BRAND.primary,
+                letterSpacing: "0.05em",
+                borderRadius: BRAND.borderRadius,
+                boxShadow: BRAND.shadow,
+              }}
             >
               Get Started
             </Link>
@@ -60,85 +74,95 @@ const Navbar = () => {
         </ul>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-gray-800" onClick={toggleMenu}>
+        <button className="md:hidden" style={{ color: "#fff" }} onClick={toggleMenu}>
           {isOpen ? <X size={30} /> : <Menu size={30} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       <div
-        className={`${mobileMenuClasses} md:hidden transition-all duration-300`}
+        className={`${mobileMenuClasses} md:hidden`}
         style={{
           minHeight: "100vh",
-          top: 0,
-          left: 0,
-          width: "100vw",
+          background: `linear-gradient(120deg, ${BRAND.primary} 0%, ${BRAND.secondary} 100%)`,
         }}
       >
         {isOpen && (
           <div className="flex flex-col h-full w-full">
-            {/* Top bar with logo and close */}
-            <div className="flex items-center justify-between px-6 pt-6 pb-2">
-              <div className="flex items-center space-x-2">
-                <Link to="/" aria-label="Go to Home">
-                  <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
-                </Link>
-                <Link to="/" aria-label="Go to Home">
-                  <span className="text-2xl font-bold text-green-700 cursor-pointer">
-                    K3Bot
-                  </span>
-                </Link>
-              </div>
-              <button onClick={toggleMenu} className="text-gray-800">
+            {/* Top bar */}
+            <div className="flex items-center justify-between px-6 pt-6">
+              <Link to="/" aria-label="Go to Home">
+                <img src={LOGO} className="h-9 w-auto" alt="K3Bot Logo" />
+              </Link>
+              <button onClick={toggleMenu} style={{ color: "#fff" }}>
                 <X size={32} />
               </button>
             </div>
-            {/* Get Started Button */}
+
+            {/* CTA */}
             <div className="flex flex-col items-center mt-6 mb-8">
               <Link
                 to="/signup"
-                className="w-11/12 max-w-xs bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-bold shadow text-center tracking-wide"
+                className="w-10/12 max-w-xs py-3 rounded-lg font-bold text-sm uppercase text-center shadow"
                 onClick={toggleMenu}
-                style={{ letterSpacing: "0.05em" }}
+                style={{
+                  background: BRAND.accent,
+                  color: BRAND.primary,
+                  letterSpacing: "0.05em",
+                  borderRadius: BRAND.borderRadius,
+                }}
               >
                 Get Started
               </Link>
             </div>
-            {/* Nav Links */}
+
+            {/* Links */}
             <ul className="flex flex-col gap-2 px-6">
               <li>
                 <Link
                   to="/usecase"
-                  className="block w-full py-4 px-4 rounded-lg text-lg font-semibold text-gray-900 hover:bg-green-50 transition"
+                  className="block py-4 px-4 rounded-lg font-semibold uppercase transition"
                   onClick={toggleMenu}
+                  style={{
+                    color: "#fff",
+                    background: "rgba(0,0,0,0.15)",
+                  }}
                 >
-                  Usecase
+                  Use Cases
                 </Link>
               </li>
               <li>
                 <Link
                   to="/pricing"
-                  className="block w-full py-4 px-4 rounded-lg text-lg font-semibold text-gray-900 hover:bg-green-50 transition"
+                  className="block py-4 px-4 rounded-lg font-semibold uppercase transition"
                   onClick={toggleMenu}
+                  style={{
+                    color: "#fff",
+                    background: "rgba(0,0,0,0.15)",
+                  }}
                 >
                   Pricing
                 </Link>
               </li>
             </ul>
-            {/* Spacer */}
-            <div className="flex-1" />
-            {/* Privacy Info */}
-            <div className="px-6 pb-6 pt-4 text-xs text-gray-500 border-t border-gray-100">
+
+            {/* Footer Info */}
+            <div
+              className="mt-auto px-6 pb-6 pt-4 text-xs border-t"
+              style={{ color: "#e0e0e0", borderColor: "rgba(255,255,255,0.2)" }}
+            >
               <div>
-                Privacy information: We and our partners are using technologies
-                like cookies and processing personal data in order to provide
-                our services and improve your experience.
+                Privacy information: We and our partners use cookies to improve
+                your experience.
               </div>
               <div className="flex items-center justify-between mt-2">
-                <a href="#" className="underline">
+                <a href="#" className="underline" style={{ color: "#fff" }}>
                   Privacy Policy
                 </a>
-                <button className="bg-gray-200 px-4 py-1 rounded-full text-gray-700 font-semibold text-xs">
+                <button
+                  className="px-4 py-1 rounded-full font-bold text-xs"
+                  style={{ background: "#fff", color: BRAND.primary }}
+                >
                   OK
                 </button>
               </div>
@@ -147,7 +171,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Animation keyframes */}
+      {/* Animation */}
       <style>
         {`
           @keyframes slide-in-left {

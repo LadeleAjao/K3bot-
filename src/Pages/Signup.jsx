@@ -99,7 +99,7 @@ const Signup = () => {
     );
   };
 
-  // Only Moniepoint payment
+  // Monnify Payment
   const handlePayment = async () => {
     if (!selectedPlanKey || !selectedBillingCycle) {
       alert("Please select a plan and billing cycle first.");
@@ -117,12 +117,8 @@ const Signup = () => {
         billingCycle: selectedBillingCycle,
         amount: selectedPlan.price,
       };
-      // Store signup data for use after payment
       localStorage.setItem("signupData", JSON.stringify(userDetails));
-      const res = await axios.post(
-        `${backendUrl}/api/payment/monnify`,
-        userDetails
-      );
+      const res = await axios.post(`${backendUrl}/api/payment/monnify`, userDetails);
       if (res.data?.link) {
         window.location.href = res.data.link;
       } else {
@@ -137,14 +133,15 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white py-26 px-4">
+    <div className="min-h-screen flex flex-col items-center bg-white py-26 px-4 font-avenir">
       <div className="w-full max-w-lg mx-auto">
         <Link
           to="/"
-          className="block text-center text-2xl font-bold mb-6 hover:underline"
+          className="block text-center text-2xl font-bold mb-6 text-[#00BDFF] hover:underline font-['Druk Wide Bold']"
         >
           Back to Home
         </Link>
+
         {/* Plans */}
         <div className="grid grid-cols-3 gap-6 justify-center mb-8 overflow-x-auto">
           {planKeys.map((plan) => (
@@ -154,17 +151,17 @@ const Signup = () => {
               onClick={() => handlePlanBoxClick(plan.key)}
               className={`border rounded-xl px-6 py-4 text-center bg-white flex flex-col items-center transition-all focus:outline-none ${
                 selectedPlanKey === plan.key
-                  ? "border-green-500 shadow-lg ring-2 ring-green-200"
+                  ? "border-[#00BDFF] shadow-lg ring-2 ring-[#A6EC49]"
                   : "border-gray-200"
               }`}
               tabIndex={0}
               style={{ minWidth: 0 }}
             >
-              <div className="font-bold text-lg sm:text-xl mb-1">
+              <div className="font-bold text-lg sm:text-xl mb-1 text-[#00065A] font-['Druk Wide Bold']">
                 {plan.label}
               </div>
-              <div className="text-gray-700 text-sm mb-1">{plan.audience}</div>
-              <div className="text-2xl font-bold mb-1">
+              <div className="text-gray-600 text-sm mb-1">{plan.audience}</div>
+              <div className="text-2xl font-bold mb-1 text-[#00BDFF]">
                 {selectedBillingCycle &&
                 PricingPlan[selectedBillingCycle]?.[plan.key]
                   ? `₦${PricingPlan[selectedBillingCycle][
@@ -175,8 +172,9 @@ const Signup = () => {
             </button>
           ))}
         </div>
+
         {/* Form */}
-        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 text-[#00065A] font-['Druk Wide Bold']">
           Get Started{" "}
           {selectedPlanMeta ? `with ${selectedPlanMeta.label} Plan` : ""}
         </h2>
@@ -185,7 +183,7 @@ const Signup = () => {
             type="text"
             name="name"
             placeholder="John Doe"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
             value={formData.name}
             onChange={handleInputChange}
             required
@@ -194,7 +192,7 @@ const Signup = () => {
             type="text"
             name="business"
             placeholder="Business Name"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
             value={formData.business}
             onChange={handleInputChange}
             required
@@ -203,14 +201,14 @@ const Signup = () => {
             type="email"
             name="email"
             placeholder="Email Address"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
             value={formData.email}
             onChange={handleInputChange}
             required
           />
           <div className="flex">
             <select
-              className="border border-gray-300 rounded-l-lg px-3 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="border border-gray-300 rounded-l-lg px-3 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
               value={formData.countryCode}
               onChange={handleCountryCodeChange}
               style={{ minWidth: 90 }}
@@ -225,16 +223,17 @@ const Signup = () => {
               type="tel"
               name="phone"
               placeholder="Phone number"
-              className="w-full px-4 py-3 border-t border-b border-r border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-4 py-3 border-t border-b border-r border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
               value={formData.phone}
               onChange={handleInputChange}
               required
             />
           </div>
+
           {/* Plan Dropdown */}
           <select
             name="plan"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
             value={selectedPlanKey}
             onChange={handlePlanChange}
             required
@@ -254,10 +253,11 @@ const Signup = () => {
               </option>
             ))}
           </select>
-          {/* Billing Cycle Dropdown (in form only) */}
+
+          {/* Billing Cycle Dropdown */}
           <select
             name="billingCycle"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00BDFF]"
             value={selectedBillingCycle}
             onChange={handleBillingCycleChange}
             required
@@ -271,10 +271,11 @@ const Signup = () => {
               </option>
             ))}
           </select>
+
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
             <button
               type="button"
-              className="w-full py-3 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition"
+              className="w-full py-3 rounded-lg font-semibold bg-[#00BDFF] text-white hover:bg-[#00065A] transition"
               onClick={handlePayment}
               disabled={loading || !selectedPlanKey || !selectedBillingCycle}
             >
@@ -308,23 +309,25 @@ const Signup = () => {
             </button>
           </div>
         </form>
+
         <div className="flex items-center justify-center mt-4 text-gray-600 text-sm">
           <span className="mr-2">🔒</span>
           Secure Checkout — your information is safe
         </div>
+
         {/* Features Accordion */}
         <div className="mt-8">
-          <h3 className="text-lg font-bold mb-2 text-center text-green-700">
+          <h3 className="text-lg font-bold mb-2 text-center text-[#00065A] font-['Druk Wide Bold']">
             What You Get with{" "}
             {selectedPlanMeta ? selectedPlanMeta.label : "..."} Plan
           </h3>
           {selectedPlan ? (
             <div className="space-y-2">
               {selectedPlan.features.map((f, idx) => (
-                <div key={idx} className="border border-green-200 rounded-lg">
+                <div key={idx} className="border border-[#A6EC49] rounded-lg">
                   <button
                     type="button"
-                    className="w-full flex justify-between items-center px-4 py-3 font-semibold text-green-800 bg-green-50 rounded-lg focus:outline-none transition"
+                    className="w-full flex justify-between items-center px-4 py-3 font-semibold text-[#00BDFF] bg-[#F0FDFA] rounded-lg focus:outline-none transition"
                     onClick={() => handleFeatureToggle(idx)}
                   >
                     <span>{f.Headings}</span>
@@ -333,7 +336,7 @@ const Signup = () => {
                     </span>
                   </button>
                   {featureOpenIndexes.includes(idx) && (
-                    <div className="px-4 pb-3 text-green-900 text-sm bg-white rounded-b-lg animate-fade-in">
+                    <div className="px-4 pb-3 text-[#00065A] text-sm bg-white rounded-b-lg animate-fade-in">
                       {f.Wordings}
                     </div>
                   )}
