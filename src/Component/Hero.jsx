@@ -86,7 +86,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative font-sans bg-gradient-to-br from-[#F9FAFB] to-[#e6f7ff] min-h-screen">
+    <div className="relative font-sans py-5 bg-gradient-to-br from-[#F9FAFB] to-[#e6f7ff] min-h-screen">
       {/* HERO Section */}
       <section
         className={`w-full flex flex-col md:flex-row items-start md:items-center justify-between px-6 md:px-32 lg:px-56 pt-24 md:pt-32 pb-20 md:py-32 transition-all duration-300 ${
@@ -123,7 +123,7 @@ const Hero = () => {
             </h2>
             <div className="flex justify-center md:justify-start">
               <button
-                className="text-white text-[70px]  md:text-[30px] font-bold px-8 py-4 md:px-12 md:py-6 rounded-2xl bg-[#A6EC49] border-0 border-[#00BDFF]  hover:bg-[#2e4b08ff] hover:border-[#00065A] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#00BDFF]/30"
+                className="text-white   md:text-[30px] font-bold px-8 py-4 md:px-12 md:py-6 rounded-2xl bg-[#A6EC49] border-0 border-[#00BDFF]  hover:bg-[#2e4b08ff] hover:border-[#00065A] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#00BDFF]/30"
                 onClick={() => setShowModal(true)}
               >
                 Get a Free Demo
@@ -186,7 +186,7 @@ const Hero = () => {
           {/* Glassmorphism Modal */}
           <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div
-              className="relative bg-white/90 backdrop-blur-2xl border-2 border-[#00BDFF] shadow-2xl rounded-3xl p-8 sm:p-12 w-full max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
+              className="relative bg-white/90 backdrop-blur-2xl border-2 border-[#00BDFF] shadow-2xl rounded-3xl p-8 sm:p-12 w-100 max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
               style={{
                 boxShadow:
                   "0 8px 32px 0 rgba(0,6,90,0.18), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
@@ -242,7 +242,7 @@ const Hero = () => {
                   >
                     {countryCodes.map((c) => (
                       <option key={c.code} value={c.code}>
-                        {c.name} ({c.code})
+                        {c.code}
                       </option>
                     ))}
                   </select>
