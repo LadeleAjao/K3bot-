@@ -44,7 +44,7 @@ const Footer = () => {
           <div className="flex space-x-4 mt-4">
             {/* Social Icons */}
             {[
-              { Icon: Facebook, href: "https://web.facebook.com/profile.php?id=61579248303412", label: "Facebook" },
+              { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61579826976713", label: "Facebook" },
               { Icon: Twitter, href: "https://x.com/k3bot_ai", label: "Twitter" },
               { Icon: Instagram, href: "https://www.instagram.com/k3botofficial/", label: "Instagram" },
               { Icon: Linkedin, href: "https://www.linkedin.com/company/k3bot/", label: "LinkedIn" },

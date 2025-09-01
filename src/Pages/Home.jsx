@@ -8,7 +8,7 @@ import Corefeautures from './Corefeautures'
 
 const Home = () => {
   return (
-    <main className="min-h-screen w-full flex flex-col bg-[#F9FAFB]">
+    <main className=" w-full flex flex-col bg-[#F9FAFB]">
       <section className="flex-1 w-full min-h-screen">
         <Hero />
       </section>

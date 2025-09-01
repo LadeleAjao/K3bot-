@@ -39,11 +39,11 @@ const features = {
     {
       Headings: "Integrations",
       Wordings:
-        "Facebook, Instagram, Shopify, WooCommerce, Indiamart, JustDial, TradeIndia, Zoom, Google Sheet, 25 more...",
+        "Facebook, Instagram, Shopify, WooCommerce, Zoom, Google Sheet, 25 more...",
     },
     {
       Headings: "WhatsApp Charges",
-      Wordings: "Marketing: 85 paisa, Utility & Authentication: 14 paisa",
+      Wordings: "Marketing: ₦0.85, Utility & Authentication: ₦0.14",
     },
   ],
 
@@ -87,11 +87,11 @@ const features = {
     {
       Headings: "Integrations",
       Wordings:
-        "Facebook, Instagram, Shopify, WooCommerce, Indiamart, JustDial, TradeIndia, Zoom, Google Sheet, 25 more...",
+        "Facebook, Instagram, Shopify, WooCommerce, Zoom, Google Sheet, 25 more...",
     },
     {
       Headings: "WhatsApp Charges",
-      Wordings: "Marketing: 85 paisa, Utility & Authentication: 14 paisa",
+      Wordings: "Marketing: ₦0.85, Utility & Authentication: ₦0.14",
     },
   ],
 
@@ -135,14 +135,15 @@ const features = {
     {
       Headings: "Integrations",
       Wordings:
-        "Facebook, Instagram, Shopify, WooCommerce, Indiamart, JustDial, TradeIndia, Zoom, Google Sheet, 25 more...",
+        "Facebook, Instagram, Shopify, WooCommerce, Zoom, Google Sheet, 25 more...",
     },
     {
       Headings: "WhatsApp Charges",
-      Wordings: "Marketing: 85 paisa, Utility & Authentication: 14 paisa",
+      Wordings: "Marketing: ₦0.85, Utility & Authentication: ₦0.14",
     },
   ],
 };
+
 
 export const PricingPlan = {
   monthly: {

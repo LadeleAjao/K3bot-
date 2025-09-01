@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import Lottie from "lottie-react";
 import ChatboxAnimation from "../assets/Chatbox.json";
-import { FaCheckCircle, FaHospital, FaPills } from "react-icons/fa";
-import { MdLocalPharmacy, MdFlight } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
 import { backendUrl } from "../App";
-// import Hospital 
+// Import images from assets
+import HospitalImg from "../assets/Hospital.png";
+import PillsImg from "../assets/Pills.png";
+import PharmacyImg from "../assets/FirstAid.png";
+import PlaneImg from "../assets/Plane.png";
 
 // Simple African country code list (can be expanded)
 const countryCodes = [
@@ -86,17 +89,14 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative font-sans py-5 bg-gradient-to-br from-[#F9FAFB] to-[#e6f7ff] min-h-screen">
+    <div className="relative font-sans py-16 md:py-0 bg-gradient-to-br from-[#F9FAFB] to-[#e6f7ff]">
       {/* HERO Section */}
       <section
-        className={`w-full flex flex-col md:flex-row items-start md:items-center justify-between px-6 md:px-32 lg:px-56 pt-24 md:pt-32 pb-20 md:py-32 transition-all duration-300 ${
+        id="hero-section"
+        className={`w-full flex flex-col md:flex-row items-start md:items-center justify-between px-6 md:px-32 lg:px-56 transition-all duration-300 ${
           showModal ? "blur-md scale-105 pointer-events-none select-none" : ""
         }`}
-        style={{
-          minHeight: "70vh",
-        }}
         aria-hidden={showModal ? "true" : "false"}
-        id="hero-section"
       >
         {/* Left Side */}
         <div className="w-full md:w-1/2 space-y-10">
@@ -113,17 +113,22 @@ const Hero = () => {
           {/* Desktop Header */}
           <div className="hidden md:block">
             <h1 className="text-5xl lg:text-7xl font-extrabold text-[#001B44] leading-tight ">
-              Everything You Need to Automate <span className="text-[#A6EC49]">WhatsApp</span>
+              Everything You Need to Automate{" "}
+              <span className="text-[#A6EC49]">WhatsApp</span>
             </h1>
           </div>
           {/* Description & CTA */}
           <div className="text-center md:text-left space-y-6">
-            <h2 className="text-lg md:text-2xl lg:text-3xl text-gray-[#374151] font-medium max-w-2xl mx-auto md:mx-0">
-              Simple setup. Zero code. <span className="text-[#A6EC49] font-semibold">Powerful features</span> to scale your business communication.
+            <h2 className="text-lg md:text-2xl lg:text-3xl text-[#374151] font-medium max-w-2xl mx-auto md:mx-0">
+              Simple setup. Zero code.{" "}
+              <span className="text-[#A6EC49] font-semibold">
+                Powerful features
+              </span>{" "}
+              to scale your business communication.
             </h2>
             <div className="flex justify-center md:justify-start">
               <button
-                className="text-white   md:text-[30px] font-bold px-8 py-4 md:px-12 md:py-6 rounded-2xl bg-[#A6EC49] border-0 border-[#00BDFF]  hover:bg-[#2e4b08ff] hover:border-[#00065A] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#00BDFF]/30"
+                className="text-white md:text-[30px] font-bold px-8 py-4 md:px-12 md:py-6 rounded-2xl bg-[#A6EC49] border-0 hover:bg-[#2e4b08ff] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#00BDFF]/30"
                 onClick={() => setShowModal(true)}
               >
                 Get a Free Demo
@@ -134,22 +139,25 @@ const Hero = () => {
           <div className="mt-6 space-y-3 text-left">
             <div className="flex flex-wrap gap-3">
               <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Used by 200+ Nigerian SMEs
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Used by 200+
+                Nigerian SMEs
               </p>
               <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> GDPR & WhatsApp Policy Compliant
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> GDPR & WhatsApp
+                Policy Compliant
               </p>
               <p className="flex items-center text-[#00065A] text-base md:text-lg">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Supports Paystack, Flutterwave & More
+                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Supports
+                Paystack, Flutterwave & More
               </p>
             </div>
           </div>
           {/* Mobile Icons */}
-          <div className="flex md:hidden justify-center gap-3 mt-6 text-[28px] text-[#00BDFF]">
-            <FaHospital />
-            <FaPills />
-            <MdLocalPharmacy />
-            <MdFlight />
+          <div className="flex md:hidden justify-center gap-3 mt-6">
+            <img src={HospitalImg} alt="Hospital" className="mobile-img object-contain" />
+            <img src={PillsImg} alt="Pills" className="mobile-img object-contain" />
+            <img src={PharmacyImg} alt="Pharmacy" className="mobile-img object-contain" />
+            <img src={PlaneImg} alt="Plane" className="mobile-img object-contain" />
           </div>
         </div>
 
@@ -163,11 +171,11 @@ const Hero = () => {
             />
           </div>
           {/* Desktop Icons */}
-          <div className="mt-10 hidden md:grid grid-cols-4 gap-8 text-center text-[44px] md:text-[56px] text-[#00BDFF]">
-            <FaHospital />
-            <FaPills />
-            <MdLocalPharmacy />
-            <MdFlight />
+          <div className="mt-10 hidden md:grid grid-cols-4 gap-8 text-center">
+            <img src={HospitalImg} alt="Hospital" className="h-14 w-14 mx-auto object-contain" />
+            <img src={PillsImg} alt="Pills" className="h-14 w-14 mx-auto object-contain" />
+            <img src={PharmacyImg} alt="Pharmacy" className="h-14 w-14 mx-auto object-contain" />
+            <img src={PlaneImg} alt="Plane" className="h-14 w-14 mx-auto object-contain" />
           </div>
         </div>
       </section>
@@ -289,20 +297,19 @@ const Hero = () => {
           }
           @media (max-width: 767px) {
             #hero-section {
-              min-height: 40vh !important;
-              padding-bottom: 4rem !important;
-              padding-top: 4rem !important;
+              min-height: 100dvh !important;
+              padding-top: 2rem !important;
+              padding-bottom: 0 !important;
             }
-            .fixed .bg-white\\/90 {
-              max-width: 98vw !important;
-              min-width: 0 !important;
-              padding-top: 2.5rem !important;
-              padding-bottom: 2.5rem !important;
+            .mobile-img {
+              height: 56px !important;
+              width: 56px !important;
             }
           }
           @media (min-width: 768px) {
             #hero-section {
-              min-height: 100vh !important;
+              -height: 100vh !important;
+              padding-top: 8rem !important;
               padding-bottom: 8rem !important;
             }
           }
@@ -313,4 +320,3 @@ const Hero = () => {
 };
 
 export default Hero;
-// ...existing code...
