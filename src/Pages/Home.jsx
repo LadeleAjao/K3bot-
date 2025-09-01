@@ -5,7 +5,7 @@ import Blog from "../Pages/Blog"
 import Testimony from '../Component/Testimony'
 import Trusted from '../Component/Trusted'
 import Corefeautures from './Corefeautures'
-
+import Others from './Others'
 const Home = () => {
   return (
     <main className=" w-full flex flex-col bg-[#F9FAFB]">
@@ -13,13 +13,15 @@ const Home = () => {
         <Hero />
       {/* </section>
       <section className="w-full block md:hidden"> */}
-        <Corefeautures />
+        {/* <Corefeautures /> */}
       {/* </section>
       <section className="w-full hidden md:block"> */}
         <Corefeautures />
       {/* </section> */}
       {/* <section className="w-full"> */}
+        <Others />
         <Testimony />
+        
       {/* </section> */}
     </main>
   )

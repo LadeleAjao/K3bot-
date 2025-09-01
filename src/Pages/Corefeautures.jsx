@@ -1,188 +1,121 @@
 import React from "react";
-import k3botw from "../assets/K3botW.png";
+import { FaComments, FaBolt, FaShieldAlt, FaChartLine } from "react-icons/fa";
 
-// --- K3BOT BRAND COLORS & STYLES ---
 const BRAND = {
-  primary: "#00065A", // Navy
-  secondary: "#00BDFF", // Cyan
-  accent: "#A6EC49", // Green
-  light: "#F9FAFB", // Light background
-  fontBody: "'Open Sans', Arial, sans-serif",
-  fontHeading: "'Druk Wide', 'Open Sans', Arial, sans-serif",
-  borderRadius: "1rem", // 16px
-  shadow: "0 8px 32px rgba(0,6,90,0.08), 0 1.5px 3px rgba(0,0,0,0.05)",
+  primary: "#00065A",   // 60%
+  secondary: "#00BDFF", // 30%
+  accent: "#A6EC49",    // 10%
+  light: "#F9FAFB",
+  fontHeading: "'Poppins', sans-serif",
+  fontBody: "'Open Sans', sans-serif",
+  borderRadius: "1.25rem",
+  shadow: "0 8px 20px rgba(0, 0, 0, 0.08)",
 };
 
-const Corefeatures = () => (
-  <div
-    className="py-16 px-6 max-w-6xl mx-auto relative"
-    style={{
-      fontFamily: BRAND.fontBody,
-      background: `linear-gradient(135deg, ${BRAND.light} 60%, #e6f7ff 100%)`,
-      borderRadius: BRAND.borderRadius,
-      boxShadow: BRAND.shadow,
-    }}
-  >
-    {/* Decorative grid background */}
-    <div
-      aria-hidden="true"
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: 0,
-        opacity: 0.07,
-        background:
-          "url('data:image/svg+xml;utf8,<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"20\" cy=\"20\" r=\"2\" fill=\"%2300065A\"/></svg>') repeat",
-        pointerEvents: "none",
-        borderRadius: BRAND.borderRadius,
-      }}
-    />
+const Corefeatures = () => {
+  const features = [
+    {
+      icon: <FaComments />,
+      title: "Smart Chat Automation",
+      desc: "Engage your customers with instant, intelligent responses that save time and increase satisfaction.",
+      color: BRAND.primary,
+    },
+    {
+      icon: <FaBolt />,
+      title: "Fast Setup",
+      desc: "Get your WhatsApp automation running in minutes with our seamless onboarding process.",
+      color: BRAND.secondary,
+    },
+    {
+      icon: <FaShieldAlt />,
+      title: "Secure & Reliable",
+      desc: "Built with enterprise-grade security, ensuring your business and customer data are always protected.",
+      color: BRAND.primary,
+    },
+    {
+      icon: <FaChartLine />,
+      title: "Analytics Dashboard",
+      desc: "Track performance and customer engagement with powerful insights at your fingertips.",
+      color: BRAND.accent,
+    },
+  ];
 
-    {/* Heading */}
-    <h2
-      className="text-3xl md:text-4xl font-extrabold text-center mb-3 relative z-10"
+  return (
+    <section
+      className="py-20 px-6 md:px-16 lg:px-24"
       style={{
-        color: BRAND.primary,
-        fontFamily: BRAND.fontHeading,
-        letterSpacing: ".01em",
+        background: `linear-gradient(135deg, ${BRAND.light} 60%, ${BRAND.secondary}20 40%)`,
+        fontFamily: BRAND.fontBody,
       }}
     >
-      Benefits of K3Bot
-    </h2>
-    <p
-      className="text-center mb-12 relative z-10"
-      style={{ color: BRAND.primary, fontSize: "1.1rem" }}
-    >
-      Automate, monetize, and scale your WhatsApp interactions
-    </p>
-
-    {/* Top row: features + phone image */}
-    <div className="flex flex-col md:flex-row gap-10 items-center relative z-10">
-      {/* Left Features */}
-      <div className="flex-1 space-y-10">
-        <div>
-          <div className="flex items-center mb-2">
-            <span className="text-3xl mr-3" style={{ color: BRAND.accent }}>
-              🕒
-            </span>
-            <span
-              className="text-xl font-bold"
-              style={{ color: BRAND.primary, fontFamily: BRAND.fontHeading }}
-            >
-              24/7 Auto Replies
-            </span>
-          </div>
-          <p className="ml-10" style={{ color: BRAND.primary }}>
-            Respond to FAQs, greetings, and common actions automatically—
-            round the clock.
-          </p>
-        </div>
-
-        <div>
-          <div className="flex items-center mb-2">
-            <span className="text-3xl mr-3" style={{ color: BRAND.accent }}>
-              💳
-            </span>
-            <span
-              className="text-xl font-bold"
-              style={{ color: BRAND.primary, fontFamily: BRAND.fontHeading }}
-            >
-              Product & Pricing Catalog
-            </span>
-          </div>
-          <div className="ml-10" style={{ color: BRAND.primary }}>
-            Showcase your services or products beautifully inside WhatsApp.
-            <ul className="list-disc ml-6 mt-2">
-              <li>Create a clear user journey with navigable product lists</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Image */}
-      <div className="flex-1 flex justify-center">
-        <img
-          src={k3botw}
-          alt="K3Bot WhatsApp Demo"
-          className="w-[200px] rounded-xl shadow-lg"
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto">
+        <h2
+          className="text-4xl md:text-5xl font-bold mb-6"
           style={{
-            border: `3px solid ${BRAND.secondary}`,
-            background: "#fff",
-          }}
-        />
-      </div>
-    </div>
-
-    {/* Grid of feature cards */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 relative z-10">
-      {[
-        {
-          icon: "🗒️",
-          title: "Booking & Order Capture",
-          desc: "Allow customers to request appointments and capture order details directly in chat.",
-          list: [
-            "Request appointments & slots",
-            "Capture order quantities, addresses, and more",
-          ],
-        },
-        {
-          icon: "🛒",
-          title: "Seamless Transactions",
-          desc: "K3Bot manages the entire booking and order process, enabling smooth sales.",
-          list: ["Simplify backend processes without coding"],
-        },
-        {
-          icon: "📄",
-          title: "Google Sheets Integration",
-          desc: "Sync responses, bookings, and customer data directly into Google Sheets.",
-          list: ["Automate workflows with zero coding"],
-        },
-        {
-          icon: "📱",
-          title: "No App Needed",
-          desc: "Engage your audience on WhatsApp without forcing downloads.",
-          list: [
-            "Accept a variety of payment options",
-            "Close more deals directly in chat",
-          ],
-        },
-      ].map((card, i) => (
-        <div
-          key={i}
-          className="p-6 flex flex-col"
-          style={{
-            background: "#fff",
-            border: `1.5px solid ${BRAND.secondary}`,
-            borderRadius: BRAND.borderRadius,
-            boxShadow: BRAND.shadow,
+            color: BRAND.primary,
+            fontFamily: BRAND.fontHeading,
           }}
         >
-          <div className="flex items-center mb-3">
-            <span className="text-2xl mr-2" style={{ color: BRAND.accent }}>
-              {card.icon}
-            </span>
-            <span
-              className="text-lg font-bold"
-              style={{ color: BRAND.primary, fontFamily: BRAND.fontHeading }}
+          Powerful Features for Growing Businesses
+        </h2>
+        <p
+          className="text-lg"
+          style={{
+            color: BRAND.primary,
+            opacity: 0.8,
+          }}
+        >
+          Our tools are designed to streamline communication and supercharge
+          customer engagement.
+        </p>
+      </div>
+
+      {/* Feature Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        {features.map((card, i) => (
+          <div
+            key={i}
+            className="p-8 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2"
+            style={{
+              background: BRAND.light,
+              borderRadius: BRAND.borderRadius,
+              boxShadow: BRAND.shadow,
+              minHeight: "260px",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              className="mb-4 flex items-center justify-center"
+              style={{
+                background: `${card.color}15`, // soft tint of the card color
+                borderRadius: "50%",
+                width: "64px",
+                height: "64px",
+                marginBottom: "1rem",
+              }}
+            >
+              <span className="text-3xl" style={{ color: card.color }}>
+                {card.icon}
+              </span>
+            </div>
+            <h3
+              className="text-xl font-bold mb-2"
+              style={{
+                color: card.color,
+                fontFamily: BRAND.fontHeading,
+              }}
             >
               {card.title}
-            </span>
+            </h3>
+            <p className="text-base" style={{ color: BRAND.primary }}>
+              {card.desc}
+            </p>
           </div>
-          <div className="ml-8" style={{ color: BRAND.primary }}>
-            {card.desc}
-            <ul className="list-disc ml-6 mt-2">
-              {card.list.map((item, j) => (
-                <li key={j}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
+        ))}
+      </div>
+    </section>
+  );
+};
 
 export default Corefeatures;
