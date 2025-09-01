@@ -11,10 +11,9 @@ const BRAND = {
   accent: "#A6EC49",
   dark: "#00065A",
   light: "#F9FAFB",
-  error: "#FF3B30",
   font: "'Inter', 'Segoe UI', Arial, sans-serif",
-  borderRadius: "1rem",
-  shadow: "0 8px 32px 0 rgba(0,82,204,0.10), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
+  borderRadius: "1.25rem",
+  shadow: "0 8px 24px rgba(0,0,0,0.08)",
 };
 
 const testimonials = [
@@ -63,48 +62,41 @@ const testimonials = [
 ];
 
 const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 640 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 639, min: 0 },
-    items: 1,
-  },
+  desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3 },
+  tablet: { breakpoint: { max: 1024, min: 640 }, items: 2 },
+  mobile: { breakpoint: { max: 639, min: 0 }, items: 1 },
 };
 
 const Testimony = () => {
   return (
-    <div
-      className="py-12 px-4 md:px-10"
+    <section
+      className="py-16 px-6 md:px-12 lg:px-20"
       style={{
         fontFamily: BRAND.font,
-        background: `linear-gradient(135deg, ${BRAND.light} 60%, #e6f7ff 100%)`,
-        borderRadius: BRAND.borderRadius,
-        boxShadow: BRAND.shadow,
+        background: `radial-gradient(circle at top left, ${BRAND.accent}20, transparent 40%),
+                     radial-gradient(circle at bottom right, ${BRAND.secondary}20, transparent 40%),
+                     ${BRAND.light}`,
       }}
     >
-      <h2
-        className="text-3xl font-bold text-center mb-8"
-        style={{ color: BRAND.primary, letterSpacing: ".01em" }}
-      >
-        What Our Clients Say
-      </h2>
-      <p
-        className="text-center max-w-2xl mx-auto mb-8"
-        style={{ color: BRAND.dark }}
-      >
-        At K3Bot, our success is measured by the satisfaction and growth of the
-        businesses we serve. From small startups to established enterprises, our
-        clients rely on us to simplify customer engagement and streamline
-        communication. Here’s what some of them have to say about working with
-        us.
-      </p>
+      {/* Section Header */}
+      <div className="text-center max-w-3xl mx-auto mb-12">
+        <h2
+          className="text-3xl md:text-4xl font-bold mb-4"
+          style={{ color: BRAND.primary }}
+        >
+          What Our Clients Say
+        </h2>
+        <p
+          className="text-lg opacity-90"
+          style={{ color: BRAND.dark }}
+        >
+          At K3Bot, our success is measured by the satisfaction and growth of the
+          businesses we serve. From startups to enterprises, our clients rely on
+          us to simplify engagement and streamline communication.
+        </p>
+      </div>
 
+      {/* Testimonials Carousel */}
       <div className="relative">
         <Carousel
           responsive={responsive}
@@ -116,34 +108,35 @@ const Testimony = () => {
           keyBoardControl
           draggable
           containerClass="carousel-container"
-          itemClass="px-1"
-          renderDotsOutside={true}
+          itemClass="px-3"
+          renderDotsOutside
           customDot={<CustomDot />}
         >
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="shadow rounded-lg p-6 flex flex-col items-center text-center mx-1 border"
+              className="p-6 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2"
               style={{
-                background: "#fff",
-                borderColor: BRAND.secondary,
+                background: "rgba(255, 255, 255, 0.8)",
+                backdropFilter: "blur(12px)",
                 borderRadius: BRAND.borderRadius,
                 boxShadow: BRAND.shadow,
+                border: `1px solid ${BRAND.secondary}30`,
+                minHeight: "340px",
               }}
             >
               <img
-                src={
-                  typeof item.image === "string" ? item.image : item.image.src
-                }
+                src={item.image}
                 alt={item.name}
-                className="w-24 h-24 rounded-full object-cover mb-4 border-4"
+                className="w-20 h-20 rounded-full object-cover mb-4 border-4"
                 style={{
                   borderColor: BRAND.accent,
-                  borderWidth: "4px",
-                  borderStyle: "solid",
                 }}
               />
-              <p className="mb-3" style={{ color: BRAND.dark, fontSize: "1rem" }}>
+              <p
+                className="mb-4 text-base leading-relaxed"
+                style={{ color: BRAND.dark }}
+              >
                 {item.testimonial}
               </p>
               <h4
@@ -152,22 +145,26 @@ const Testimony = () => {
               >
                 {item.name}
               </h4>
-              <span className="text-sm" style={{ color: BRAND.secondary }}>
+              <span
+                className="text-sm mt-1"
+                style={{ color: BRAND.secondary }}
+              >
                 {item.position}
               </span>
             </div>
           ))}
         </Carousel>
       </div>
-    </div>
+    </section>
   );
 };
 
+/* Custom Dots */
 const CustomDot = ({ onClick, active }) => {
   return (
     <li
-      className={`inline-block w-3 h-3 mx-1 rounded-full cursor-pointer ${
-        active ? "bg-[#A6EC49]" : "bg-gray-300"
+      className={`inline-block w-3 h-3 mx-1 rounded-full cursor-pointer transition-all ${
+        active ? "bg-[#A6EC49] scale-110" : "bg-gray-300"
       }`}
       onClick={onClick}
     />

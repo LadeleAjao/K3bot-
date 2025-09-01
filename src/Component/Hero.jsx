@@ -91,7 +91,12 @@ const Hero = () => {
           {/* Mobile Header */}
           <div className="flex md:hidden items-center justify-center gap-4">
             <h1 className="text-[27px] font-extrabold text-[#00065A] leading-tight w-1/2 drop-shadow">
-              No.1 Nigeria WhatsApp Automation Platform
+              No.1 Nigeria WhatsApp <span className="text-[#13D26B] bg-gradient-to-r from-[#00BDFF] to-[#A6EC49] bg-clip-text text-transparent">
+                Automation
+              </span>{" "}
+              <span className="text-[#FFD600] bg-gradient-to-r from-[#A6EC49] to-[#00BDFF] bg-clip-text text-transparent">
+                Platform
+              </span>
             </h1>
             <Lottie
               animationData={ChatboxAnimation}
@@ -103,10 +108,10 @@ const Hero = () => {
           <div className="hidden md:flex flex-row items-center gap-4 md:gap-8">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#00065A] leading-tight drop-shadow">
               No.1 Nigeria WhatsApp <br />
-              <span className="text-[#13D26B] bg-gradient-to-r from-[#13D26B] to-[#FFD600] bg-clip-text text-transparent">
+              <span className="text-[#13D26B] bg-gradient-to-r from-[#00BDFF] to-[#A6EC49] bg-clip-text text-transparent">
                 Automation
               </span>{" "}
-              <span className="text-[#FFD600] bg-gradient-to-r from-[#FFD600] to-[#13D26B] bg-clip-text text-transparent">
+              <span className="text-[#FFD600] bg-gradient-to-r from-[#A6EC49] to-[#00BDFF] bg-clip-text text-transparent">
                 Platform
               </span>
             </h1>
