@@ -3,13 +3,7 @@ import Lottie from "lottie-react";
 import ChatboxAnimation from "../assets/Chatbox.json";
 import { FaCheckCircle } from "react-icons/fa";
 import { backendUrl } from "../App";
-// Import images from assets
-import HospitalImg from "../assets/Hospital.png";
-import PillsImg from "../assets/Pills.png";
-import PharmacyImg from "../assets/FirstAid.png";
-import PlaneImg from "../assets/Plane.png";
 
-// Simple African country code list (can be expanded)
 const countryCodes = [
   { code: "+234", name: "Nigeria" },
   { code: "+254", name: "Kenya" },
@@ -44,10 +38,7 @@ const Hero = () => {
     setDemoForm({ ...demoForm, countryCode: e.target.value });
   };
 
-  const validate = (email) => {
-    const regex = /^[^@]+@[^@]+\.[^@]{2,4}$/;
-    return regex.test(email);
-  };
+  const validate = (email) => /^[^@]+@[^@]+\.[^@]{2,4}$/.test(email);
 
   const handleDemoSubmit = async (e) => {
     e.preventDefault();
@@ -64,9 +55,7 @@ const Hero = () => {
     try {
       const res = await fetch(`${backendUrl}/api/demo/demo`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...demoForm,
           phone: `${demoForm.countryCode}${demoForm.phone}`,
@@ -74,7 +63,6 @@ const Hero = () => {
       });
 
       const data = await res.json();
-
       if (res.ok) {
         setSuccessMsg(`Welcome email sent to ${demoForm.email} successfully!`);
         setDemoForm({ name: "", email: "", phone: "", countryCode: "+234" });
@@ -89,7 +77,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative font-sans py-16 md:py-0 bg-gradient-to-br from-[#F9FAFB] to-[#e6f7ff]">
+    <div className="relative font-sans py-16 md:py-0 overflow-hidden bg-gradient-to-br from-[#F9FAFB] to-[#e6f7ff] min-h-[100vh]">
       {/* HERO Section */}
       <section
         id="hero-section"
@@ -99,91 +87,89 @@ const Hero = () => {
         aria-hidden={showModal ? "true" : "false"}
       >
         {/* Left Side */}
-        <div className="w-full md:w-1/2 space-y-10">
+        <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6">
           {/* Mobile Header */}
-          <div className="flex md:hidden items-center justify-center gap-2">
-            <h1 className="text-[22px] font-extrabold text-[#00BDFF] leading-tight w-1/2 drop-shadow-lg">
-              Everything You Need to Automate WhatsApp
+          <div className="flex md:hidden items-center justify-center gap-4">
+            <h1 className="text-[27px] font-extrabold text-[#00065A] leading-tight w-1/2 drop-shadow">
+              No.1 Nigeria WhatsApp Automation Platform
             </h1>
             <Lottie
               animationData={ChatboxAnimation}
               className="h-[120px] w-auto object-contain block"
             />
           </div>
+
           {/* Desktop Header */}
-          <div className="hidden md:block">
-            <h1 className="text-5xl lg:text-7xl font-extrabold text-[#001B44] leading-tight ">
-              Everything You Need to Automate{" "}
-              <span className="text-[#A6EC49]">WhatsApp</span>
+          <div className="hidden md:flex flex-row items-center gap-4 md:gap-8">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#00065A] leading-tight drop-shadow">
+              No.1 Nigeria WhatsApp <br />
+              <span className="text-[#13D26B] bg-gradient-to-r from-[#13D26B] to-[#FFD600] bg-clip-text text-transparent">
+                Automation
+              </span>{" "}
+              <span className="text-[#FFD600] bg-gradient-to-r from-[#FFD600] to-[#13D26B] bg-clip-text text-transparent">
+                Platform
+              </span>
             </h1>
           </div>
-          {/* Description & CTA */}
-          <div className="text-center md:text-left space-y-6">
-            <h2 className="text-lg md:text-2xl lg:text-3xl text-[#374151] font-medium max-w-2xl mx-auto md:mx-0">
-              Simple setup. Zero code.{" "}
-              <span className="text-[#A6EC49] font-semibold">
-                Powerful features
-              </span>{" "}
-              to scale your business communication.
-            </h2>
-            <div className="flex justify-center md:justify-start">
-              <button
-                className="text-white md:text-[30px] font-bold px-8 py-4 md:px-12 md:py-6 rounded-2xl bg-[#A6EC49] border-0 hover:bg-[#2e4b08ff] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#00BDFF]/30"
-                onClick={() => setShowModal(true)}
-              >
-                Get a Free Demo
-              </button>
-            </div>
+
+          {/* Subheading */}
+          <p className="text-[#374151] text-lg md:text-xl font-medium max-w-2xl">
+            Live Broadcasting, WhatsApp Marketing, and Product Catalog. Scale
+            your business, engage customers, and drive sales directly on
+            WhatsApp—the app they use every day.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              className="flex-1 bg-[#A6EC49] text-[#00065A] font-bold px-6 py-3 rounded-lg shadow hover:bg-[#00BDFF] hover:text-white transition"
+              onClick={() => setShowModal(true)}
+            >
+              Start Your Free Trial
+            </button>
+            <button
+              className="flex-1 bg-transparent text-[#00065A] font-bold px-6 py-3 rounded-lg border-2 border-[#00BDFF] hover:bg-[#00BDFF] hover:text-white transition"
+              onClick={() => setShowModal(true)}
+            >
+              Watch a Demo
+            </button>
           </div>
+
           {/* Feature List */}
-          <div className="mt-6 space-y-3 text-left">
-            <div className="flex flex-wrap gap-3">
-              <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Used by 200+
-                Nigerian SMEs
-              </p>
-              <p className="flex items-center text-[#00065A] text-base md:text-lg mr-4">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> GDPR & WhatsApp
-                Policy Compliant
-              </p>
-              <p className="flex items-center text-[#00065A] text-base md:text-lg">
-                <FaCheckCircle className="text-[#A6EC49] mr-2" /> Supports
-                Paystack, Flutterwave & More
-              </p>
+          <div className="mt-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3 bg-white border-l-4 border-[#A6EC49] px-5 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+              <FaCheckCircle className="text-[#00BDFF] text-xl flex-shrink-0" />
+              <span className="text-[#00065A] font-semibold text-base md:text-lg">
+                24/7 Automation
+              </span>
             </div>
-          </div>
-          {/* Mobile Icons */}
-          <div className="flex md:hidden justify-center gap-3 mt-6">
-            <img src={HospitalImg} alt="Hospital" className="mobile-img object-contain" />
-            <img src={PillsImg} alt="Pills" className="mobile-img object-contain" />
-            <img src={PharmacyImg} alt="Pharmacy" className="mobile-img object-contain" />
-            <img src={PlaneImg} alt="Plane" className="mobile-img object-contain" />
+            <div className="flex items-center gap-3 bg-white border-l-4 border-[#A6EC49] px-5 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+              <FaCheckCircle className="text-[#00BDFF] text-xl flex-shrink-0" />
+              <span className="text-[#00065A] font-semibold text-base md:text-lg">
+                Real-time Analytics
+              </span>
+            </div>
+            <div className="flex items-center gap-3 bg-white border-l-4 border-[#A6EC49] px-5 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+              <FaCheckCircle className="text-[#00BDFF] text-xl flex-shrink-0" />
+              <span className="text-[#00065A] font-semibold text-base md:text-lg">
+                98% Open Rate!
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Right Side */}
-        <div className="w-full md:w-1/2 mt-10 md:mt-0 flex flex-col items-center">
-          {/* Animation */}
-          <div className="hidden md:flex justify-center">
-            <Lottie
-              animationData={ChatboxAnimation}
-              className="max-h-[650px] lg:max-h-[750px] w-auto object-contain"
-            />
-          </div>
-          {/* Desktop Icons */}
-          <div className="mt-10 hidden md:grid grid-cols-4 gap-8 text-center">
-            <img src={HospitalImg} alt="Hospital" className="h-14 w-14 mx-auto object-contain" />
-            <img src={PillsImg} alt="Pills" className="h-14 w-14 mx-auto object-contain" />
-            <img src={PharmacyImg} alt="Pharmacy" className="h-14 w-14 mx-auto object-contain" />
-            <img src={PlaneImg} alt="Plane" className="h-14 w-14 mx-auto object-contain" />
-          </div>
+        {/* Right Side (Desktop Lottie) */}
+        <div className="w-full md:w-1/2 mt-10 md:mt-0 hidden md:flex justify-center">
+          <Lottie
+            animationData={ChatboxAnimation}
+            className="max-h-[650px] lg:max-h-[750px] w-auto object-contain"
+          />
         </div>
       </section>
 
       {/* MODAL */}
       {showModal && (
         <>
-          {/* Dim overlay */}
           <div
             className="fixed inset-0 z-40 bg-[#00065A]/70 backdrop-blur-sm transition-opacity"
             onClick={() => setShowModal(false)}
@@ -191,7 +177,6 @@ const Hero = () => {
             tabIndex={-1}
           ></div>
 
-          {/* Glassmorphism Modal */}
           <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div
               className="relative bg-white/90 backdrop-blur-2xl border-2 border-[#00BDFF] shadow-2xl rounded-3xl p-8 sm:p-12 w-100 max-w-xs sm:max-w-md flex flex-col items-center animate-pop-up"
@@ -278,14 +263,15 @@ const Hero = () => {
                 </div>
               )}
               {errorMsg && (
-                <div className="mt-4 text-red-600 text-center font-semibold">{errorMsg}</div>
+                <div className="mt-4 text-red-600 text-center font-semibold">
+                  {errorMsg}
+                </div>
               )}
             </div>
           </div>
         </>
       )}
 
-      {/* Animations & Responsive Height */}
       <style>
         {`
           @keyframes pop-up {
@@ -295,20 +281,19 @@ const Hero = () => {
           .animate-pop-up {
             animation: pop-up 0.4s cubic-bezier(.22,1,.36,1) both;
           }
+
+          /* Mobile responsiveness (from second Hero) */
           @media (max-width: 767px) {
             #hero-section {
-              min-height: 100dvh !important;
+              max-height: 100vh !important;
               padding-top: 2rem !important;
               padding-bottom: 0 !important;
             }
-            .mobile-img {
-              height: 56px !important;
-              width: 56px !important;
-            }
           }
+
           @media (min-width: 768px) {
             #hero-section {
-              -height: 100vh !important;
+              -max-height: 100vh !important;
               padding-top: 8rem !important;
               padding-bottom: 8rem !important;
             }
