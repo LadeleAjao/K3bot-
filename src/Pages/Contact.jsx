@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { backendUrl } from "../App"; // Import backendUrl from App.jsx
 
 const BRAND = {
   primary: "#00065A", // 60%
@@ -14,9 +16,41 @@ const Contact = () => {
     country: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setResult(null);
+    try {
+      const res = await axios.post(
+        `${backendUrl}/api/contact/contact`,
+        form
+      );
+      setResult({ success: true, message: res.data.message });
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        country: "",
+        message: "",
+      });
+    } catch (err) {
+      setResult({
+        success: false,
+        message:
+          err.response?.data?.error ||
+          err.response?.data?.message ||
+          "Submission failed",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,6 +69,7 @@ const Contact = () => {
           <form
             className="shadow-lg rounded-2xl p-8 md:w-2/3 text-left"
             style={{ backgroundColor: "#ffffff", border: `2px solid ${BRAND.accent}` }}
+            onSubmit={handleSubmit}
           >
             <div className="grid md:grid-cols-2 gap-6">
               {/* Name */}
@@ -50,6 +85,7 @@ const Contact = () => {
                   placeholder="Enter your name"
                   className="w-full border rounded-lg px-4 py-2 focus:outline-none"
                   style={{ borderColor: BRAND.secondary, backgroundColor: "#F9FAFB" }}
+                  required
                 />
               </div>
 
@@ -66,6 +102,7 @@ const Contact = () => {
                   placeholder="Enter your email"
                   className="w-full border rounded-lg px-4 py-2 focus:outline-none"
                   style={{ borderColor: BRAND.secondary, backgroundColor: "#F9FAFB" }}
+                  required
                 />
               </div>
 
@@ -82,6 +119,7 @@ const Contact = () => {
                   placeholder="Enter your phone number"
                   className="w-full border rounded-lg px-4 py-2 focus:outline-none"
                   style={{ borderColor: BRAND.secondary, backgroundColor: "#F9FAFB" }}
+                  required
                 />
               </div>
 
@@ -98,6 +136,7 @@ const Contact = () => {
                   placeholder="Enter your country"
                   className="w-full border rounded-lg px-4 py-2 focus:outline-none"
                   style={{ borderColor: BRAND.secondary, backgroundColor: "#F9FAFB" }}
+                  required
                 />
               </div>
             </div>
@@ -115,8 +154,20 @@ const Contact = () => {
                 placeholder="Write your message here..."
                 className="w-full border rounded-lg px-4 py-2 focus:outline-none"
                 style={{ borderColor: BRAND.secondary, backgroundColor: "#F9FAFB" }}
+                required
               ></textarea>
             </div>
+
+            {/* Result Message */}
+            {result && (
+              <div
+                className={`mt-4 text-center font-semibold ${
+                  result.success ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {result.message}
+              </div>
+            )}
 
             {/* Submit Button */}
             <button
@@ -126,19 +177,26 @@ const Contact = () => {
                 backgroundColor: BRAND.primary,
                 color: "#ffffff",
                 border: `2px solid ${BRAND.primary}`,
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading ? 0.7 : 1,
               }}
+              disabled={loading}
               onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = BRAND.secondary;
-                e.currentTarget.style.borderColor = BRAND.secondary;
-                e.currentTarget.style.color = "#00065A";
+                if (!loading) {
+                  e.currentTarget.style.backgroundColor = BRAND.secondary;
+                  e.currentTarget.style.borderColor = BRAND.secondary;
+                  e.currentTarget.style.color = "#00065A";
+                }
               }}
               onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = BRAND.primary;
-                e.currentTarget.style.borderColor = BRAND.primary;
-                e.currentTarget.style.color = "#ffffff";
+                if (!loading) {
+                  e.currentTarget.style.backgroundColor = BRAND.primary;
+                  e.currentTarget.style.borderColor = BRAND.primary;
+                  e.currentTarget.style.color = "#ffffff";
+                }
               }}
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
 
