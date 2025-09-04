@@ -11,6 +11,7 @@ import Corefeautures from "./Pages/Corefeautures";
 import About from "./Pages/About";
 import PaymentSuccess from "./Component/PaymentSuccess";
 import ScrollToTop from "./Component/ScrollUp";
+import Contact from "./Pages/Contact";
 
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/usecase" element={<Niche />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Corefeautures />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
       </Routes>
       <Footer />

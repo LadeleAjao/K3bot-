@@ -40,7 +40,7 @@ const benefits = [
 
 const Others = () => (
   <div
-    className="min-h-[70vh] flex flex-col md:flex-row items-center justify-center px-6 py-16"
+    className="min-h-[70vh] flex flex-col md:flex-row items-center gap-7 justify-center px-6 py-16"
     style={{
       background: BRAND.primary,
       fontFamily: BRAND.fontBody,
@@ -51,21 +51,17 @@ const Others = () => (
       className="flex-1 flex flex-col justify-center 
                  items-center text-center mx-auto 
                  md:items-start md:text-left md:mx-0 
-                 p-10"
+                 p-8 w-full md:w-[420px]"
       style={{
         background: BRAND.secondary,
         borderRadius: BRAND.borderRadius,
-        marginRight: "0", // no margin on mobile
-        minWidth: "320px",
-        maxWidth: "420px",
         color: "#fff",
       }}
     >
       <h2
-        className="text-4xl md:text-5xl font-extrabold mb-6"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight"
         style={{
           fontFamily: BRAND.fontHeading,
-          lineHeight: 1.1,
         }}
       >
         Increase
@@ -76,40 +72,43 @@ const Others = () => (
         <br />
         <span style={{ color: BRAND.accent }}>by 300%</span>
       </h2>
-      <p className="text-lg" style={{ opacity: 0.9 }}>
+      <p className="text-base sm:text-lg" style={{ opacity: 0.9 }}>
         Join thousands of Nigerian businesses already using K3Bot to transform
         their customer communication
       </p>
     </div>
 
     {/* Right: Benefits */}
-    <div className="flex-1 flex flex-col gap-6 mt-10 md:mt-0">
+    <div className="flex-1 flex flex-col gap-6 mt-10 md:mt-0 w-full">
       {benefits.map((item, i) => (
         <div
           key={i}
           className="flex items-start gap-4 mx-auto w-full md:max-w-[650px]"
           style={{
-            background: "rgba(255,255,255,0.08)", // slightly stronger glass
+            background: "rgba(255,255,255,0.08)",
             borderRadius: "1rem",
-            padding: "1.5rem 2rem", // increased padding for desktop
+            padding: "1.5rem 2rem",
             border: `1px solid ${BRAND.secondary}33`,
             boxShadow: "0 4px 18px rgba(0,0,0,0.1)",
           }}
         >
           <div
-            className="flex items-center justify-center"
+            className="flex items-center justify-center flex-shrink-0"
             style={{
               background: "#fff",
               borderRadius: "50%",
               width: "46px",
               height: "46px",
-              fontSize: "1.5rem",
+              fontSize: "26px",
+              lineHeight: "1",
               color: BRAND.secondary,
               marginRight: "0.5rem",
               boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
             }}
           >
-            {item.icon}
+            <span role="img" aria-label={item.title} style={{ display: "block" }}>
+              {item.icon}
+            </span>
           </div>
           <div>
             <div

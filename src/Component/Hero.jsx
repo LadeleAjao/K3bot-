@@ -90,7 +90,7 @@ const Hero = () => {
         <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6">
           {/* Mobile Header */}
           <div className="flex md:hidden items-center justify-center gap-4">
-            <h1 className="text-[27px] font-extrabold text-[#00065A] leading-tight w-1/2 drop-shadow">
+            <h1 className="text-[28px] font-extrabold text-[#00065A] leading-tight w-1/2 drop-shadow">
               No.1 Nigeria WhatsApp <span className="text-[#13D26B] bg-gradient-to-r from-[#00BDFF] to-[#A6EC49] bg-clip-text text-transparent">
                 Automation
               </span>{" "}
@@ -134,9 +134,11 @@ const Hero = () => {
             </button>
             <button
               className="flex-1 bg-transparent text-[#00065A] font-bold px-6 py-3 rounded-lg border-2 border-[#00BDFF] hover:bg-[#00BDFF] hover:text-white transition"
-              onClick={() => setShowModal(true)}
+              
             >
-              Watch a Demo
+              <a href="https://youtube.com/shorts/g8DEBSKOgiQ">
+                Watch a Demo
+              </a>
             </button>
           </div>
 
