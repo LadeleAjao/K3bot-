@@ -261,7 +261,7 @@ const Hero = () => {
                   className="w-full py-3 rounded-lg font-bold bg-[#A6EC49] text-[#00065A] hover:bg-[#00BDFF] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#00BDFF]/40"
                   disabled={processing}
                 >
-                  {processing ? "Processing..." : "Process"}
+                  {processing ?  "Submitting..." : "Submit"}
                 </button>
               </form>
               {successMsg && (
