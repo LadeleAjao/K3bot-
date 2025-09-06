@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import ChatboxAnimation from "../assets/Chatbox.json";
 import { FaCheckCircle } from "react-icons/fa";
 import { backendUrl } from "../App";
+import Automation from "../assets/Automation.mp4";
 
 const countryCodes = [
   { code: "+234", name: "Nigeria" },
@@ -19,6 +20,7 @@ const countryCodes = [
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showDemoVideo, setShowDemoVideo] = useState(false);
   const [demoForm, setDemoForm] = useState({
     name: "",
     email: "",
@@ -82,16 +84,19 @@ const Hero = () => {
       <section
         id="hero-section"
         className={`w-full flex flex-col md:flex-row items-start md:items-center justify-between px-6 md:px-32 lg:px-56 transition-all duration-300 ${
-          showModal ? "blur-md scale-105 pointer-events-none select-none" : ""
+          showModal || showDemoVideo
+            ? "blur-md scale-105 pointer-events-none select-none"
+            : ""
         }`}
-        aria-hidden={showModal ? "true" : "false"}
+        aria-hidden={showModal || showDemoVideo ? "true" : "false"}
       >
         {/* Left Side */}
         <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6">
           {/* Mobile Header */}
           <div className="flex md:hidden items-center justify-center gap-4">
             <h1 className="text-[28px] font-extrabold text-[#00065A] leading-tight w-1/2 drop-shadow">
-              No.1 Nigeria WhatsApp <span className="text-[#13D26B] bg-gradient-to-r from-[#00BDFF] to-[#A6EC49] bg-clip-text text-transparent">
+              No.1 Nigeria WhatsApp{" "}
+              <span className="text-[#13D26B] bg-gradient-to-r from-[#00BDFF] to-[#A6EC49] bg-clip-text text-transparent">
                 Automation
               </span>{" "}
               <span className="text-[#FFD600] bg-gradient-to-r from-[#A6EC49] to-[#00BDFF] bg-clip-text text-transparent">
@@ -134,11 +139,9 @@ const Hero = () => {
             </button>
             <button
               className="flex-1 bg-transparent text-[#00065A] font-bold px-6 py-3 rounded-lg border-2 border-[#00BDFF] hover:bg-[#00BDFF] hover:text-white transition"
-              
+              onClick={() => setShowDemoVideo(true)}
             >
-              <a href="https://youtube.com/shorts/g8DEBSKOgiQ">
-                Watch a Demo
-              </a>
+              Watch a Demo
             </button>
           </div>
 
@@ -174,7 +177,7 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* DEMO FORM MODAL */}
       {showModal && (
         <>
           <div
@@ -261,7 +264,7 @@ const Hero = () => {
                   className="w-full py-3 rounded-lg font-bold bg-[#A6EC49] text-[#00065A] hover:bg-[#00BDFF] hover:text-white transition focus:outline-none focus:ring-2 focus:ring-[#00BDFF]/40"
                   disabled={processing}
                 >
-                  {processing ?  "Submitting..." : "Submit"}
+                  {processing ? "Submitting..." : "Submit"}
                 </button>
               </form>
               {successMsg && (
@@ -279,6 +282,55 @@ const Hero = () => {
         </>
       )}
 
+      {/* DEMO VIDEO MODAL 9:16 */}
+      {showDemoVideo && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-[#00065A]/70 backdrop-blur-sm transition-opacity"
+            onClick={() => setShowDemoVideo(false)}
+            aria-label="Close modal"
+            tabIndex={-1}
+          ></div>
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div
+              className="relative bg-white/95 backdrop-blur-2xl border-2 border-[#00BDFF] shadow-2xl rounded-3xl p-4 sm:p-8 w-full max-w-xs sm:max-w-sm flex flex-col items-center animate-pop-up"
+              style={{
+                boxShadow:
+                  "0 8px 32px 0 rgba(0,6,90,0.18), 0 1.5px 3px 0 rgba(0,0,0,0.05)",
+                maxHeight: "90vh",
+                overflowY: "auto",
+              }}
+              role="dialog"
+              aria-modal="true"
+            >
+              <button
+                className="absolute top-4 right-5 text-3xl text-[#00065A] hover:text-[#00BDFF] focus:outline-none"
+                onClick={() => setShowDemoVideo(false)}
+                aria-label="Close"
+                tabIndex={0}
+              >
+                &times;
+              </button>
+              <h2 className="text-2xl font-bold mb-4 text-center text-[#00065A]">
+                Watch Automation Demo
+              </h2>
+
+              {/* 9:16 Vertical Video */}
+              <div className="w-full aspect-[9/16] rounded-lg overflow-hidden">
+                <video
+                  src={Automation}
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       <style>
         {`
           @keyframes pop-up {
@@ -289,7 +341,6 @@ const Hero = () => {
             animation: pop-up 0.4s cubic-bezier(.22,1,.36,1) both;
           }
 
-          /* Mobile responsiveness (from second Hero) */
           @media (max-width: 767px) {
             #hero-section {
               max-height: 100vh !important;
