@@ -93,17 +93,16 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a
-                  href="https://blog.k3bot.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  // href="https://blog.k3bot.com/"
+                  to="/blog"
                   className="transition-colors duration-200"
                   style={{ color: "#d1d5db" }}
                   onMouseOver={(e) => (e.currentTarget.style.color = BRAND.secondary)}
                   onMouseOut={(e) => (e.currentTarget.style.color = "#d1d5db")}
                 >
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
                 <Link

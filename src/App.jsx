@@ -12,7 +12,7 @@ import About from "./Pages/About";
 import PaymentSuccess from "./Component/PaymentSuccess";
 import ScrollToTop from "./Component/ScrollUp";
 import Contact from "./Pages/Contact";
-
+import Blog from "./Pages/Blog";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const App = () => {
@@ -29,6 +29,7 @@ const App = () => {
         <Route path="/features" element={<Corefeautures />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
       <Footer />
     </>
